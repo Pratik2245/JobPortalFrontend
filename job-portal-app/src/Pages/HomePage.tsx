@@ -1,7 +1,10 @@
 import Header from "../Header/Header";
+import About from "../LandingPage/About";
 import Companies from "../LandingPage/Companies";
 import DreamJob from "../LandingPage/DreamJob";
+import Footer from "../LandingPage/Footer";
 import JobCategory from "../LandingPage/JobCategory";
+import Subscribe from "../LandingPage/Subscribe";
 import Working from "../LandingPage/Working";
 
 const HomePage = () => {
@@ -13,6 +16,9 @@ const HomePage = () => {
         <Companies />
         <JobCategory />
         <Working />
+        <About />
+        <Subscribe />
+        <Footer />
       </div>
     </>
   );
