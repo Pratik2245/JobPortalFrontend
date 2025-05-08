@@ -9,26 +9,70 @@ const Working = () => {
         post jobs, review candidates, and hire — all in one place.
       </div>
       {/* left side  */}
-      <div className="flex w-full">
-        <div className="w-[50%]">
-          <img src="Working/Girl.png" alt="" />
+      <div className="flex w-full items-center justify-center">
+        <div className="w-[60%] relative flex justify-center">
+          <img src="Working/Girl.png" className="h-[29rem]" alt="" />
+          <div className="absolute p-2  mt-3 text-center left-[60%] bottom-[50%]  h-auto w-40 border flex-col items-center justify-center flex border-[#ffbd20] rounded-xl backdrop-blur-md">
+            <div>
+              <img src="image2.png" className="h-14 w-14 rounded-full" alt="" />
+            </div>
+            <div className="text-[#e7e7e7]">Complete Your Profile</div>
+            <div className="text-[#b0b0b0]">70% completed</div>
+          </div>
         </div>
+
         {/* right side  */}
-        <div className="w-[50%] flex flex-col items-center justify-center">
-          <div>
-            <img src="" alt="" />
-            <div>Build Your Resume</div>
-            <div>Create a standout resume with your skills.</div>
+        <div className="w-[40%] flex flex-col gap-7 justify-start">
+          <div className="flex gap-4 items-center ">
+            <div className="object-cover border bg-[#ffbd20] border-white rounded-full ">
+              <img
+                src="Working/Build your resume.png"
+                className="h-16 w-16 p-2"
+                alt=""
+              />
+            </div>
+            <div className="">
+              <div className="text-xl text-[#d1d1d1] font-semibold">
+                Build Your Resume
+              </div>
+              <div className="text-[#b0b0b0]">
+                Create a standout resume with your skills.
+              </div>
+            </div>
           </div>
-          <div>
-            <img src="" alt="" />
-            <div>Apply for Job</div>
-            <div>Find and apply for jobs that match your skills.</div>
+          <div className="flex gap-4 items-center">
+            <div className="border bg-[#ffbd20] border-white rounded-full ">
+              <img
+                className="h-16 w-16 p-2"
+                src="Working/Apply for job.png"
+                alt=""
+              />
+            </div>
+            <div>
+              <div className="text-xl text-[#d1d1d1] font-semibold">
+                Apply for Job
+              </div>
+              <div className="text-[#b0b0b0]">
+                Find and apply for jobs that match your skills.
+              </div>
+            </div>
           </div>
-          <div>
-            <img src="" alt="" />
-            <div>Get Hired</div>
-            <div>Connect with employers and start your new job.</div>
+          <div className="flex gap-4 items-center">
+            <div className="border bg-[#ffbd20] border-white rounded-full">
+              <img
+                className="h-16 w-16 p-2"
+                src="Working/Get hired.png"
+                alt=""
+              />
+            </div>
+            <div>
+              <div className="text-xl text-[#d1d1d1] font-semibold">
+                Get Hired
+              </div>
+              <div className="text-[#b0b0b0]">
+                Connect with employers and start your new job.
+              </div>
+            </div>
           </div>
         </div>
       </div>
