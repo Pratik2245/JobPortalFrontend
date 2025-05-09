@@ -2,7 +2,7 @@ import { Avatar, TextInput } from "@mantine/core";
 import { Search } from "lucide-react";
 const DreamJob = () => {
   return (
-    <div className="flex items-center px-20">
+    <div className="flex items-center px-20 mt-10 ">
       {/* right  */}
       <div className="w-[50%] flex flex-col gap-3">
         <div className="text-7xl font-bold text-[#e7e7e7]">
