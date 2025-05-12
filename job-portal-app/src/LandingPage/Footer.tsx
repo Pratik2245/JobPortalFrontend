@@ -1,9 +1,10 @@
 import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
 import { SiCloudflareworkers } from "react-icons/si";
+import { footerLinks } from "../Data/Data";
 
 const Footer = () => {
   return (
-    <div className="mt-20 pb-5">
+    <div className="mt-20 pb-5 flex justify-around gap-3">
       <div className="w-1/4 flex flex-col gap-4">
         <div className="flex items-center text-[#ffbd20] gap-2">
           <SiCloudflareworkers size={25} />
@@ -29,6 +30,22 @@ const Footer = () => {
           </div>
         </div>
       </div>
+      {footerLinks.map((item, index) => (
+        <div key={index} className="">
+          <div className="text-lg font-semibold mb-4 text-[#ffbd20]">
+            {item.title}
+          </div>
+          {item.links.map((links, index) => (
+            <div
+              key={index}
+              className="cursor-pointer mb-1 hover:translate-x-2 transition ease-in-out text-[#b0b0b0] hover:text-[#ffbd20]
+ text-sm "
+            >
+              {links}
+            </div>
+          ))}
+        </div>
+      ))}
     </div>
   );
 };
