@@ -9,7 +9,7 @@ const DreamJob = () => {
           Find Your <span className="text-[#ffbd20]">Dream Job</span> With Us
         </div>
         <div className="text-lg text-[#e7e7e7]">
-          "Find the Right Talent, Faster." Our job provider platform helps
+          "Find the Right Talent, Faster."Our job provider platform helps
           employers connect with skilled candidates quickly and easily. Post job
           openings, manage applications, and streamline your hiring process—all
           in one place.
