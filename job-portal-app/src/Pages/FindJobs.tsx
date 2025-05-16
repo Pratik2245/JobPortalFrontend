@@ -1,10 +1,11 @@
-import Header from "../Header/Header";
-import Footer from "../LandingPage/Footer";
+import SearchBar from "../FindJobs/SearchBar";
 
 const FindJobs = () => {
   return (
     <div className="min-h-[100vh] bg-[#2d2d2d] font-['poppins']">
-      <div>FindJobs</div>
+      <div>
+        <SearchBar />
+      </div>
     </div>
   );
 };
