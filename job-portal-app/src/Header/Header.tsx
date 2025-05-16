@@ -1,6 +1,5 @@
 import { Avatar, Indicator } from "@mantine/core";
 import { IoMdNotificationsOutline } from "react-icons/io";
-import { IoSettingsSharp } from "react-icons/io5";
 import { Settings } from "lucide-react";
 import { SiCloudflareworkers } from "react-icons/si";
 import NavLinks from "./NavLinks";

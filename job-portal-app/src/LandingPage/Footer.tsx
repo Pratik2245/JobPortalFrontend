@@ -4,7 +4,7 @@ import { footerLinks } from "../Data/Data";
 
 const Footer = () => {
   return (
-    <div className="mt-20 pb-5 flex justify-around gap-3">
+    <div className="pt-20 pb-5 flex justify-around gap-3 bg-[#2d2d2d] font-['poppins']">
       <div className="w-1/4 flex flex-col gap-4">
         <div className="flex items-center text-[#ffbd20] gap-2">
           <SiCloudflareworkers size={25} />
