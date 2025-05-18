@@ -3,29 +3,26 @@ import {
   CheckIcon,
   Combobox,
   Group,
+  Input,
   Pill,
   PillsInput,
   useCombobox,
 } from "@mantine/core";
-import { Search } from "lucide-react";
-import { useState } from "react";
+import { IconSelector } from "@tabler/icons-react";
+import { useEffect, useState } from "react";
 
-const groceries = [
-  "🍎 Apples",
-  "🍌 Bananas",
-  "🥦 Broccoli",
-  "🥕 Carrots",
-  "🍫 Chocolate",
-];
+const MultiInput = (props: any) => {
+  useEffect(() => {
+    setData(props.options);
+  }, []);
 
-const MultiInput = () => {
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
     onDropdownOpen: () => combobox.updateSelectedOptionIndex("active"),
   });
 
   const [search, setSearch] = useState("");
-  const [data, setData] = useState(groceries);
+  const [data, setData] = useState<string[]>([]);
   const [value, setValue] = useState<string[]>([]);
 
   const exactOptionMatch = data.some((item) => item === search);
@@ -48,27 +45,28 @@ const MultiInput = () => {
   const handleValueRemove = (val: string) =>
     setValue((current) => current.filter((v) => v !== val));
 
-  const values = value.map((item) => (
+  const values = value.slice(0, 1).map((item) => (
     <Pill key={item} withRemoveButton onRemove={() => handleValueRemove(item)}>
       {item}
     </Pill>
   ));
-
-  const options = groceries.map((item) => (
-    <Combobox.Option value={item} key={item} active={value.includes(item)}>
-      <Group gap="sm">
-        <Checkbox
-          checked={value.includes(item)}
-          onChange={() => {}}
-          color="#ffbd20"
-          aria-hidden
-          tabIndex={-1}
-          style={{ pointerEvents: "none" }}
-        />
-        <span>{item}</span>
-      </Group>
-    </Combobox.Option>
-  ));
+  const options = data
+    .filter((item) => item.toLowerCase().includes(search.trim().toLowerCase()))
+    .map((item) => (
+      <Combobox.Option value={item} key={item} active={value.includes(item)}>
+        <Group gap="sm">
+          <Checkbox
+            checked={value.includes(item)}
+            onChange={() => {}}
+            color="#ffbd20"
+            aria-hidden
+            tabIndex={-1}
+            style={{ pointerEvents: "none" }}
+          />
+          <span>{item}</span>
+        </Group>
+      </Combobox.Option>
+    ));
 
   return (
     <Combobox
@@ -78,36 +76,26 @@ const MultiInput = () => {
     >
       <Combobox.DropdownTarget>
         <PillsInput
+          onClick={() => combobox.toggleDropdown()}
           variant="unstyled"
-          rightSection={<Combobox.Chevron />}
+          rightSection={<IconSelector />}
           leftSection={
-            <div className="text-[#ffbd20] p-1 bg-[#3d3d3d] rounded-full mr-1">
-              {<Search />}
+            <div className="text-[#ffbd20] p-1 bg-[#3d3d3d] rounded-full mr-2">
+              {<props.icon />}
             </div>
           }
-          onClick={() => combobox.openDropdown()}
         >
           <Pill.Group>
-            {values}
-
-            <Combobox.EventsTarget>
-              <PillsInput.Field
-                onFocus={() => combobox.openDropdown()}
-                onBlur={() => combobox.closeDropdown()}
-                value={search}
-                placeholder="Search values"
-                onChange={(event) => {
-                  combobox.updateSelectedOptionIndex();
-                  setSearch(event.currentTarget.value);
-                }}
-                onKeyDown={(event) => {
-                  if (event.key === "Backspace" && search.length === 0) {
-                    event.preventDefault();
-                    handleValueRemove(value[value.length - 1]);
-                  }
-                }}
-              />
-            </Combobox.EventsTarget>
+            {value.length > 0 ? (
+              <>
+                {values}
+                {value.length > 1 && <Pill>+{value.length - 1} more</Pill>}
+              </>
+            ) : (
+              <Input.Placeholder className="!text-[#e7e7e7]">
+                {props.title}
+              </Input.Placeholder>
+            )}
           </Pill.Group>
         </PillsInput>
       </Combobox.DropdownTarget>

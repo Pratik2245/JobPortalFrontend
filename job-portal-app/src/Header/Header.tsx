@@ -5,7 +5,7 @@ import { SiCloudflareworkers } from "react-icons/si";
 import NavLinks from "./NavLinks";
 const Header = () => {
   return (
-    <div className="w-full text-white flex justify-between items-center px-6 bg-[#2d2d2d] h-20">
+    <div className="w-full text-white flex justify-between items-center px-6 bg-[#2d2d2d] h-23">
       <div className="flex items-center text-[#ffbd20] gap-2">
         <SiCloudflareworkers size={35} />
         <span className="font-bold text-3xl">JobSparks</span>
