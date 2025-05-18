@@ -1,14 +1,15 @@
-import {
-  IconBriefcase,
-  IconMapPin,
-  IconRecharging,
-  IconSearch,
-} from "@tabler/icons-react";
+// import {
+//   IconBriefcase,
+//   IconMapPin,
+//   IconRecharging,
+//   IconSearch,
+// } from "@tabler/icons-react";
+import { BriefcaseBusiness, MapPin, Search, Star } from "lucide-react";
 
 const dropdownData = [
   {
     title: "Job Title",
-    icon: IconSearch,
+    icon: Search,
     options: [
       "Designer",
       "Developer",
@@ -22,7 +23,7 @@ const dropdownData = [
   },
   {
     title: "Location",
-    icon: IconMapPin,
+    icon: MapPin,
     options: [
       "Delhi",
       "New York",
@@ -36,12 +37,12 @@ const dropdownData = [
   },
   {
     title: "Experience",
-    icon: IconBriefcase,
+    icon: Star,
     options: ["Entry Level", "Intermediate", "Expert"],
   },
   {
     title: "Job Type",
-    icon: IconRecharging,
+    icon: BriefcaseBusiness,
     options: ["Full Time", "Part Time", "Contract", "Freelance", "Internship"],
   },
 ];
