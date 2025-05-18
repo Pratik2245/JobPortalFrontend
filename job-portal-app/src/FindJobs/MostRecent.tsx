@@ -3,15 +3,14 @@ import { Button, Combobox, useCombobox, Text, Box } from "@mantine/core";
 import { AlignJustify } from "lucide-react";
 
 const groceries = [
-  "🍎 Apples",
-  "🍌 Bananas",
-  "🥦 Broccoli",
-  "🥕 Carrots",
-  "🍫 Chocolate",
+  "Revelence",
+  "Most Recent",
+  "Salary (Low to High)",
+  "Salary (High to Low)",
 ];
 
 const MostRecent = () => {
-  const [selectedItem, setSelectedItem] = useState<string | null>(null);
+  const [selectedItem, setSelectedItem] = useState<string | null>("Relevence");
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
   });
@@ -34,14 +33,14 @@ const MostRecent = () => {
       }}
     >
       <Combobox.Target>
-        <Button
-          variant="default"
-          className="bg-transparent text-black border border-black hover:bg-black hover:text-white transition"
-          onClick={() => combobox.toggleDropdown()}
-        >
-          Most Recent
-          <AlignJustify />
-        </Button>
+        <div className=" flex rounded-xl p-1.5 gap-1.5 items-center border border-[#ffbd20]">
+          {selectedItem}
+          <AlignJustify
+            onClick={() => combobox.toggleDropdown()}
+            className="h-5 w-5 "
+            color="#ffbd20"
+          />
+        </div>
       </Combobox.Target>
 
       <Combobox.Dropdown>

@@ -1,3 +1,4 @@
+import JobCard from "../FindJobs/JobCard";
 import Jobs from "../FindJobs/Jobs";
 import SearchBar from "../FindJobs/SearchBar";
 
@@ -8,6 +9,7 @@ const FindJobs = () => {
         <SearchBar />
       </div>
       <Jobs />
+      {/* <JobCard /> */}
     </div>
   );
 };
