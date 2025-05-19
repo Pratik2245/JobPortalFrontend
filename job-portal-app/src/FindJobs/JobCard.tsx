@@ -2,7 +2,7 @@ import { Bookmark } from "lucide-react";
 
 const JobCard = () => {
   return (
-    <div className="bg-[#3d3d3d] p-4 w-72 ">
+    <div className="flex flex-col gap-2 rounded-2xl bg-[#3d3d3d] p-4 w-72 ">
       <div className="flex justify-between ">
         <div className="flex gap-2 items-center">
           <div className="bg-[#454545]">
@@ -17,18 +17,21 @@ const JobCard = () => {
         </div>
         <Bookmark />
       </div>
-      <div className="flex gap-2 [&>div]:py-1 [&>div]:px-2 [&>div]:bg-[#b0b0b0] ">
+      <div className="flex items-center justify-between gap-2 [&>div]:py-1  [&>div]:bg-[#454545] [&>div]:text-[#ffbd20] [&>div]:rounded-lg text-xs [&>div]:px-2">
         <div>Intermediate</div>
         <div>Full Time</div>
         <div>New York</div>
       </div>
-      <div className="">
+      <div className="text-sm mb-2">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam delectus
         provident eos!
       </div>
-      <div className="">
-        <div></div>
-        <div></div>
+      <div className="flex justify-between [&>div]:text-[#ffbd20]">
+        <div>33 LPA</div>
+        <div>Posted 1 Month Ago</div>
+      </div>
+      <div className="border rounded-2xl bg-[#fffbeb] text-[#ffbd20] text-center ">
+        View Job
       </div>
     </div>
   );
