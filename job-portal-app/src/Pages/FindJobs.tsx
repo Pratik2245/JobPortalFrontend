@@ -9,7 +9,6 @@ const FindJobs = () => {
         <SearchBar />
       </div>
       <Jobs />
-      {/* <JobCard /> */}
     </div>
   );
 };

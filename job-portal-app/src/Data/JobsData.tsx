@@ -1,9 +1,3 @@
-// import {
-//   IconBriefcase,
-//   IconMapPin,
-//   IconRecharging,
-//   IconSearch,
-// } from "@tabler/icons-react";
 import { BriefcaseBusiness, MapPin, Search, Star } from "lucide-react";
 
 const dropdownData = [
