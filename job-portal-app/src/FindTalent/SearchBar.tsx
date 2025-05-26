@@ -1,13 +1,21 @@
-import { Divider, RangeSlider } from "@mantine/core";
-import { dropdownData } from "../Data/JobsData";
+import { Divider, Input, RangeSlider } from "@mantine/core";
 import React, { useState } from "react";
 import MultiInput from "../FindJobs/MultiInput";
 import { searchFields } from "../Data/TalentData";
+import { CircleUser } from "lucide-react";
 
 const SearchBar = () => {
   const [value, setValue] = useState<[number, number]>([0, 80]);
   return (
-    <div className="flex items-center w-[100%]  px-2 gap-2 ">
+    <div className="flex items-center w-[100%]  px-5  py-8 gap-2 ">
+      <div className="text-[#ffbd20] items-center bg-[#3d3d3d] rounded-full p-1 flex">
+        <CircleUser size={25} />
+      </div>
+      <Input
+        className="[&_input]:!placeholder-[#e7e7e7] text-xl"
+        variant="unstyled"
+        placeholder="Talent Name"
+      />
       {searchFields.map((values, index) => (
         <React.Fragment key={index}>
           <div className="w-1/5">
