@@ -1,0 +1,23 @@
+import { Button, Divider } from "@mantine/core";
+import { ArrowLeft } from "lucide-react";
+import { Link } from "react-router-dom";
+import Profile from "../TalentProfile/Profile";
+
+const TalentProfilePage = () => {
+  return (
+    <div className="min-h-[100vh] bg-[#2d2d2d] font-['poppins'] p-4">
+      <Divider size="xs" />
+      <Link to="/find-talent" className="my-4 inline-block">
+        <Button leftSection={<ArrowLeft />} color="#ffbd20" variant="light">
+          Back
+        </Button>
+      </Link>
+      <Divider size="xs" />
+      <div className="flex gap-5">
+        <Profile />
+      </div>
+    </div>
+  );
+};
+
+export default TalentProfilePage;
