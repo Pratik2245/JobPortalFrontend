@@ -1,4 +1,4 @@
-import { Divider, Text } from "@mantine/core";
+import { Button, Divider, Text } from "@mantine/core";
 import { Bookmark, Clock } from "lucide-react";
 
 const JobCard = (props: any) => {
@@ -38,9 +38,9 @@ const JobCard = (props: any) => {
           <Clock size={15} /> Posted {props.postedDaysAgo} Month Ago
         </div>
       </div>
-      <div className="border rounded-2xl bg-[#fffbeb] text-[#ffbd20] text-center ">
+      <Button variant="light" radius="sm" color="#ffbd20">
         View Job
-      </div>
+      </Button>
     </div>
   );
 };

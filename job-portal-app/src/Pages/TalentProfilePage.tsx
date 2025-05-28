@@ -2,6 +2,8 @@ import { Button, Divider } from "@mantine/core";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import Profile from "../TalentProfile/Profile";
+import { profile } from "../Data/TalentData";
+import RecommendedTalent from "../TalentProfile/RecommendedTalent";
 
 const TalentProfilePage = () => {
   return (
@@ -13,8 +15,9 @@ const TalentProfilePage = () => {
         </Button>
       </Link>
       <Divider size="xs" />
-      <div className="flex gap-5">
-        <Profile />
+      <div className="flex justify-between gap-5">
+        <Profile {...profile} />
+        <RecommendedTalent />
       </div>
     </div>
   );

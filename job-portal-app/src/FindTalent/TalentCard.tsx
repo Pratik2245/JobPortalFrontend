@@ -7,8 +7,12 @@ const TalentCard = (props: any) => {
     <div className="flex flex-col gap-2 just rounded-2xl bg-[#3d3d3d] p-4 w-78 hover:shadow-[0_0_5px_1px_yellow] !shadow-[#ffd149">
       <div className="flex justify-between mb-2">
         <div className="flex gap-2 items-center ">
-          <div className="bg-[#454545]">
-            <img className="h-7" src={`/${props.image}.png`} alt="" />
+          <div className="">
+            <img
+              className="h-10 rounded-full"
+              src={`/${props.image}.png`}
+              alt=""
+            />
           </div>
           <div className="">
             <div className="font-semibold">{props.name}</div>
