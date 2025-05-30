@@ -1,4 +1,4 @@
-import { TagsInput } from "@mantine/core";
+import { Button, TagsInput } from "@mantine/core";
 import { fields } from "../Data/PostJob";
 import SelectInput from "./SelectInput";
 import TextEditor from "./TextEditor";
@@ -29,9 +29,17 @@ const PostJob = () => {
           label="Skills"
           placeholder="Enter Skill"
         />
-        <div className="">
+        <div className="[&_button[data-active='true']]:!text-[#ffbd20] [&_button[data-active='true']]:!bg-[#ffbd20]/20">
           <div className="text-xl font-semibold mb-3">Job Description</div>
           <TextEditor />
+        </div>
+        <div className="flex  gap-4">
+          <Button color="#ffbd20" variant="light">
+            Publish a Job
+          </Button>
+          <Button color="#ffbd20" variant="outline">
+            Save As Draft
+          </Button>
         </div>
       </div>
     </div>
