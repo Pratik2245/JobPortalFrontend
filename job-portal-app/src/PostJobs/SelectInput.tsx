@@ -1,14 +1,5 @@
-import { Combobox, InputBase, useCombobox } from "@mantine/core";
+import { Combobox, InputBase, ScrollArea, useCombobox } from "@mantine/core";
 import { useEffect, useState } from "react";
-
-const groceries = [
-  "🍎 Apples",
-  "🍌 Bananas",
-  "🥦 Broccoli",
-  "🥕 Carrots",
-  "🍫 Chocolate",
-  "🍇 Grapes",
-];
 
 const SelectInput = (props: any) => {
   useEffect(() => {
@@ -54,6 +45,9 @@ const SelectInput = (props: any) => {
     >
       <Combobox.Target>
         <InputBase
+          withAsterisk
+          className="[&_input]:font-medium"
+          label={props.label}
           rightSection={<Combobox.Chevron />}
           value={search}
           onChange={(event) => {
@@ -74,10 +68,14 @@ const SelectInput = (props: any) => {
 
       <Combobox.Dropdown>
         <Combobox.Options>
-          {options}
-          {!exactOptionMatch && search.trim().length > 0 && (
-            <Combobox.Option value="$create">+ Create {search}</Combobox.Option>
-          )}
+          <ScrollArea.Autosize mah={150} type="scroll">
+            {options}
+            {!exactOptionMatch && search.trim().length > 0 && (
+              <Combobox.Option value="$create">
+                + Create {search}
+              </Combobox.Option>
+            )}
+          </ScrollArea.Autosize>
         </Combobox.Options>
       </Combobox.Dropdown>
     </Combobox>

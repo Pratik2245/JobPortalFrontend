@@ -13,6 +13,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import FindJobs from "./Pages/FindJobs";
 import Footer from "./LandingPage/Footer";
 import Header from "./Header/Header";
+import "@mantine/tiptap/styles.css";
 import FindTalentPage from "./Pages/FindTalentPage";
 import TalentProfilePage from "./Pages/TalentProfilePage";
 import PostJobsPage from "./Pages/PostJobsPage";
