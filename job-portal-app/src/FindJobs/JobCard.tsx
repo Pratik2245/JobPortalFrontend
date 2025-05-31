@@ -1,9 +1,13 @@
 import { Button, Divider, Text } from "@mantine/core";
 import { Bookmark, Clock } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const JobCard = (props: any) => {
   return (
-    <div className="flex flex-col gap-2 rounded-2xl bg-[#3d3d3d] p-4 w-72 hover:shadow-[0_0_5px_1px_yellow] !shadow-[#ffd149">
+    <Link
+      to="/job-details"
+      className="flex flex-col gap-2 rounded-2xl bg-[#3d3d3d] p-4 w-72 hover:shadow-[0_0_5px_1px_yellow] !shadow-[#ffd149"
+    >
       <div className="flex justify-between mb-2">
         <div className="flex gap-2 items-center ">
           <div className="bg-[#454545]">
@@ -41,7 +45,7 @@ const JobCard = (props: any) => {
       <Button variant="light" radius="sm" color="#ffbd20">
         View Job
       </Button>
-    </div>
+    </Link>
   );
 };
 
