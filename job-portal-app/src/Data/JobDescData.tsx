@@ -1,9 +1,14 @@
-import { BriefcaseBusiness, MapPin, Search, Star } from "lucide-react";
+import {
+  BriefcaseBusiness,
+  CircleDollarSign,
+  MapPin,
+  Star,
+} from "lucide-react";
 
 const card = [
   { name: "Location", icon: MapPin, value: "New York" },
   { name: "Experience", icon: BriefcaseBusiness, value: "Expert" },
-  { name: "Salary", icon: Star, value: "48 LPA" },
+  { name: "Salary", icon: CircleDollarSign, value: "48 LPA" },
   { name: "Job Type", icon: Star, value: "Full Time" },
 ];
 const skills = [

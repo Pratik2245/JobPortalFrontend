@@ -1,1 +1,14 @@
 @import "tailwindcss";
+@layer base {
+  ul,
+  ol {
+    font-size: medium;
+    list-style: revert;
+  }
+  p {
+    font-size: medium;
+  }
+  li {
+    margin-left: 1em;
+  }
+}

@@ -2,6 +2,7 @@ import { Button, Divider } from "@mantine/core";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import JobDesc from "../JobDescription/JobDesc";
+import RecommendedJobs from "../JobDescription/RecommendedJobs";
 
 const JobDetails = () => {
   return (
@@ -11,8 +12,9 @@ const JobDetails = () => {
           Back
         </Button>
       </Link>
-      <div className="flex gap-2">
+      <div className="flex gap-2 justify-around">
         <JobDesc />
+        <RecommendedJobs />
       </div>
     </div>
   );
