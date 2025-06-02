@@ -14,6 +14,7 @@ const JobDetails = () => {
       </Link>
       <div className="flex gap-2 justify-around">
         <JobDesc />
+        <div className="">hello</div>
         <RecommendedJobs />
       </div>
     </div>
