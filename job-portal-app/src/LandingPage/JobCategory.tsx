@@ -13,20 +13,20 @@ const JobCategory = () => {
         different industries. From tech to healthcare, finance, and more — start
         your job search here.
       </div>
+
       <Carousel
         className="[&_button]:!bg-[#ffbd20] [&_button]:!opacity-0 hover:[&_button]:!opacity-100 focus-visible:[&_button]:!outline-none"
         nextControlIcon={<ArrowRight className="h-8 w-8" />}
         previousControlIcon={<ArrowLeft className="h-8 w-8" />}
         slideSize="22%"
         slideGap="md"
+        withControls
         loop
+        withIndicators={false}
       >
         {jobCategory.map((item, index) => (
-          <Carousel.Slide>
-            <div
-              key={index}
-              className="flex items-center gap-2 flex-col w-64 border border-[#ffbd20] p-5 rounded-xl hover:cursor-pointer hover:shadow-[0_0_5px_2px_black] my-3 transition duration-400 ease-in-out !shadow-[#ffd149]"
-            >
+          <Carousel.Slide key={index}>
+            <div className="flex items-center gap-2 flex-col w-64 border border-[#ffbd20] p-5 rounded-xl hover:cursor-pointer hover:shadow-[0_0_5px_2px_black] my-3 transition duration-400 ease-in-out !shadow-[#ffd149]">
               <div className="p-2 rounded-full bg-[#ffd149]   ">
                 <img
                   className="  h-8 w-8"

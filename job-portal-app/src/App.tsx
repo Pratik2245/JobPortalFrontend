@@ -59,18 +59,20 @@ function App() {
     <>
       <MantineProvider defaultColorScheme="dark" theme={theme}>
         <BrowserRouter>
-          <Header />
-          <Divider size="xs" />
-          <Routes>
-            <Route path="/find-jobs" element={<FindJobs />} />
-            <Route path="/find-talent" element={<FindTalentPage />} />
-            <Route path="/talent-profile" element={<TalentProfilePage />} />
-            <Route path="/job-details" element={<JobDetails />} />
-            <Route path="/apply-job" element={<ApplyJobPage />} />
-            <Route path="/post-jobs" element={<PostJobsPage />} />
-            <Route path="*" element={<HomePage />} />
-          </Routes>
-          <Footer />
+          <div className="relative">
+            <Header />
+            <Divider size="xs" />
+            <Routes>
+              <Route path="/find-jobs" element={<FindJobs />} />
+              <Route path="/find-talent" element={<FindTalentPage />} />
+              <Route path="/talent-profile" element={<TalentProfilePage />} />
+              <Route path="/job-details" element={<JobDetails />} />
+              <Route path="/apply-job" element={<ApplyJobPage />} />
+              <Route path="/post-jobs" element={<PostJobsPage />} />
+              <Route path="*" element={<HomePage />} />
+            </Routes>
+            <Footer />
+          </div>
         </BrowserRouter>
       </MantineProvider>
     </>

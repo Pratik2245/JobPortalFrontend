@@ -70,7 +70,7 @@ const JobDesc = () => {
       ></div>
       <Divider my="xl" />
       <div className="mb-4">About Company</div>
-      <div className="flex mb-2 justify-between mb-2">
+      <div className="flex mb-2 justify-between ">
         <div className="flex gap-2 items-center ">
           <div className="bg-[#454545] p-2 rounded-xl">
             <img className="h-8" src={`/Icons/Google.png`} alt="" />
