@@ -13,8 +13,9 @@ const CompanyPage = () => {
         </Button>
       </Link>
 
-      <div className="flex justify-between gap-5"></div>
-      <Company />
+      <div className="flex justify-between gap-5">
+        <Company />
+      </div>
     </div>
   );
 };
