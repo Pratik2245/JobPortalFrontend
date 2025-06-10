@@ -1,13 +1,15 @@
-import { talents } from "../../Data/TalentData";
-import TalentCard from "../../FindTalent/TalentCard";
+import { similar } from "../../Data/Company";
+import CompanyCard from "./CompanyCard";
 
 const SimilarCompanies = () => {
   return (
-    <div className=" flex flex-col   w-1/3 font-semibold mb-5">
-      <div className="mb-9 text-center mt-5 text-2xl">Recommended Talent</div>
-      <div className="flex flex-col flex-wrap gap-3 justify-center items-center">
-        {talents.slice(0, 4).map((talent, index) => (
-          <TalentCard key={index} {...talent} />
+    <div className=" flex flex-col gap-7">
+      <div className="text-xl text-center font-semibold mt-5">
+        Similar Companies
+      </div>
+      <div className="flex flex-col  flex-wrap gap-3 ">
+        {similar.map((companies, index) => (
+          <CompanyCard key={index} {...companies} />
         ))}
       </div>
     </div>

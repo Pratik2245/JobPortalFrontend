@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowLeftToLine } from "lucide-react";
 import { Link } from "react-router-dom";
 import Companies from "../LandingPage/Companies";
 import Company from "../CompanyProfile/Company";
+import SimilarCompanies from "../CompanyProfile/Tabs/SimilarCompanies";
 
 const CompanyPage = () => {
   return (
@@ -13,7 +14,7 @@ const CompanyPage = () => {
         </Button>
       </Link>
 
-      <div className="flex justify-between gap-5">
+      <div className="flex  gap-5">
         <Company />
       </div>
     </div>

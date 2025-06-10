@@ -7,7 +7,7 @@ import SimilarCompanies from "./Tabs/SimilarCompanies";
 
 const Company = () => {
   return (
-    <div className="flex gap-4">
+    <div className="flex gap-4 justify-between">
       <div className="w-3/4">
         <div className="relative">
           <img className="rounded-t-2xl" src="/Profile/banner.jpg" alt="" />
