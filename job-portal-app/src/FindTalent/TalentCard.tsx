@@ -51,38 +51,64 @@ const TalentCard = (props: any) => {
         {props.about}
       </Text>
       <Divider size="xs" color="#4f4f4f" />
-      <div className="flex justify-between mb-2 mt-2">
-        <div className="text-[#d1d1d1] text-sm font-semibold">
-          {props.expectedCtc}
+
+      {props.invited ? (
+        <div className="flex  gap-1 items-center  text-[#d1d1d1] text-sm ">
+          <CalendarDays className="w-5 h-5" /> Interview : August 27,2024 ,10:00
+          AM
         </div>
-        <div className="flex text-xs gap-0.5 items-center text-[#888888]">
-          <MapPin size={15} /> {props.location}
+      ) : (
+        <div className="flex justify-between mb-2 mt-2">
+          <div className="text-[#d1d1d1] text-sm font-semibold">
+            {props.expectedCtc}
+          </div>
+          <div className="flex text-xs gap-0.5 items-center text-[#888888]">
+            <MapPin size={15} /> {props.location}
+          </div>
         </div>
-      </div>
+      )}
       <Divider size="xs" color="#4f4f4f" className="mb-1" />
       <div className=" flex [&>*]:w-1/2 [&>*]:p-1 gap-2">
-        <Link to="/talent-profile">
-          <Button color="#ffbd20" variant="outline" fullWidth>
-            Profile
-          </Button>
-        </Link>
-        <div className="">
-          {props.schedule ? (
-            <Button
-              rightSection={<CalendarDays className="w-5 h-5" />}
-              color="#ffbd20"
-              variant="light"
-              fullWidth
-              onClick={open}
-            >
-              Schedule
-            </Button>
-          ) : (
-            <Button color="#ffbd20" variant="light" fullWidth>
-              Message
-            </Button>
-          )}
-        </div>
+        {!props.invited && (
+          <>
+            <Link to="/talent-profile">
+              <Button color="#ffbd20" variant="outline" fullWidth>
+                Profile
+              </Button>
+            </Link>
+            <div className="">
+              {props.schedule ? (
+                <Button
+                  rightSection={<CalendarDays className="w-5 h-5" />}
+                  color="#ffbd20"
+                  variant="light"
+                  fullWidth
+                  onClick={open}
+                >
+                  Schedule
+                </Button>
+              ) : (
+                <Button color="#ffbd20" variant="light" fullWidth>
+                  Message
+                </Button>
+              )}
+            </div>
+          </>
+        )}
+        {props.invited && (
+          <>
+            <div className="">
+              <Button color="#ffbd20" variant="outline" fullWidth>
+                Accept
+              </Button>
+            </div>
+            <div className="">
+              <Button color="#ffbd20" variant="light" fullWidth>
+                Reject
+              </Button>
+            </div>
+          </>
+        )}
       </div>
       <Modal
         opened={opened}

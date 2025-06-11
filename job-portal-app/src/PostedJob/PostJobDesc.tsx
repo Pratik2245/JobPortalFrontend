@@ -17,24 +17,30 @@ const PostJobDesc = () => {
       </div>
       {/* Tabs  */}
       <div className="">
-        <Tabs variant="outline" defaultValue="about">
+        <Tabs variant="outline" defaultValue="overview">
           <Tabs.List className="[&_button]:!text-lg font-medium mb-5 [&_button[data-active='true']]:!text-[#ffbd20]">
-            <Tabs.Tab value="about">Overview</Tabs.Tab>
-            <Tabs.Tab value="jobs">Applicants</Tabs.Tab>
-            <Tabs.Tab value="employees">Invited</Tabs.Tab>
+            <Tabs.Tab value="overview">Overview</Tabs.Tab>
+            <Tabs.Tab value="applicants">Applicants</Tabs.Tab>
+            <Tabs.Tab value="invited">Invited</Tabs.Tab>
           </Tabs.List>
 
-          <Tabs.Panel value="about" className="[&>div]:w-full">
+          <Tabs.Panel value="overview" className="[&>div]:w-full">
             <JobDesc edit />
           </Tabs.Panel>
-          <Tabs.Panel value="jobs">
+          <Tabs.Panel value="applicants">
             <div className=" mt-10 flex flex-wrap  gap-5 ">
               {talents.map((talent, index) => (
                 <TalentCard schedule key={index} {...talent} />
               ))}
             </div>
           </Tabs.Panel>
-          <Tabs.Panel value="employees">third</Tabs.Panel>
+          <Tabs.Panel value="invited">
+            <div className=" mt-10 flex flex-wrap  gap-5 ">
+              {talents.map((talent, index) => (
+                <TalentCard invited key={index} {...talent} />
+              ))}
+            </div>
+          </Tabs.Panel>
         </Tabs>
       </div>
     </div>
