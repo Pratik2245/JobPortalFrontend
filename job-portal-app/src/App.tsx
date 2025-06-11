@@ -5,6 +5,7 @@ import {
   Slider,
   Text,
 } from "@mantine/core";
+import "@mantine/dates/styles.css";
 import "@mantine/core/styles.css";
 import "@mantine/carousel/styles.css";
 import "./App.css";

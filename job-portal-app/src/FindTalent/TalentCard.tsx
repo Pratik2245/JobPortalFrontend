@@ -1,8 +1,23 @@
-import { Button, Divider, Text } from "@mantine/core";
-import { Heart, MapPin } from "lucide-react";
+import { ActionIcon, Button, Divider, Modal, Text } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+import { CalendarDays, Clock, Heart, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
+import { DateInput, PickerControl, TimeInput } from "@mantine/dates";
+import { useRef, useState } from "react";
 
 const TalentCard = (props: any) => {
+  const ref = useRef<HTMLInputElement>(null);
+  const pickerControl = (
+    <ActionIcon
+      variant="subtle"
+      color="gray"
+      onClick={() => ref.current?.showPicker()}
+    >
+      <Clock size={16} />
+    </ActionIcon>
+  );
+  const [value, setValue] = useState<string | null>(null);
+  const [opened, { open, close }] = useDisclosure(false);
   return (
     <div className="flex flex-col gap-2 just rounded-2xl bg-[#3d3d3d] p-4 w-78 hover:shadow-[0_0_5px_1px_yellow] !shadow-[#ffd149">
       <div className="flex justify-between mb-2">
@@ -52,11 +67,43 @@ const TalentCard = (props: any) => {
           </Button>
         </Link>
         <div className="">
-          <Button color="#ffbd20" variant="light" fullWidth>
-            Message
-          </Button>
+          {props.schedule ? (
+            <Button
+              rightSection={<CalendarDays className="w-5 h-5" />}
+              color="#ffbd20"
+              variant="light"
+              fullWidth
+              onClick={open}
+            >
+              Schedule
+            </Button>
+          ) : (
+            <Button color="#ffbd20" variant="light" fullWidth>
+              Message
+            </Button>
+          )}
         </div>
       </div>
+      <Modal
+        opened={opened}
+        onClose={close}
+        title="Scheduled Interview"
+        centered
+      >
+        <div className="flex flex-col gap-3">
+          <DateInput
+            value={value}
+            onChange={setValue}
+            label="Date"
+            minDate={new Date()}
+            placeholder="Enter Date for Interview"
+          />
+          <TimeInput label="Time" ref={ref} leftSection={pickerControl} />
+          <Button color="#ffbd20" variant="light" fullWidth>
+            Schedule
+          </Button>
+        </div>
+      </Modal>
     </div>
   );
 };
