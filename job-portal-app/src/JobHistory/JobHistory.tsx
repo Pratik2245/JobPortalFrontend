@@ -17,14 +17,14 @@ const JobHistory = () => {
         <Tabs.Panel value="applied">
           <div className=" mt-10 flex flex-wrap gap-5 justify-around">
             {jobList.map((job, key) => (
-              <Card applied kwy={key} {...job} />
+              <Card applied key={key} {...job} />
             ))}
           </div>
         </Tabs.Panel>
         <Tabs.Panel value="saved">
           <div className=" mt-10 flex flex-wrap gap-5 justify-around">
             {jobList.map((job, key) => (
-              <Card saved applied kwy={key} {...job} />
+              <Card saved key={key} {...job} />
             ))}
           </div>
         </Tabs.Panel>
@@ -32,11 +32,17 @@ const JobHistory = () => {
         <Tabs.Panel value="offered">
           <div className=" mt-10 flex flex-wrap gap-5 justify-around">
             {jobList.map((job, key) => (
-              <Card offered applied kwy={key} {...job} />
+              <Card offered key={key} {...job} />
             ))}
           </div>
         </Tabs.Panel>
-        <Tabs.Panel value="interviewing">fourth</Tabs.Panel>
+        <Tabs.Panel value="interviewing">
+          <div className=" mt-10 flex flex-wrap gap-5 justify-around">
+            {jobList.map((job, key) => (
+              <Card interviewing key={key} {...job} />
+            ))}
+          </div>
+        </Tabs.Panel>
       </Tabs>
     </div>
   );

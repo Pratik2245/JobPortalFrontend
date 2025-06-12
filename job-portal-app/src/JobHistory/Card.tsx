@@ -1,5 +1,5 @@
 import { Button, Divider, Text } from "@mantine/core";
-import { Bookmark, Clock } from "lucide-react";
+import { Bookmark, CalendarDays, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Card = (props: any) => {
@@ -39,14 +39,18 @@ const Card = (props: any) => {
       </Text>
       <Divider size="xs" color="#4f4f4f" />
       <div className="flex justify-between mb-2">
-        <div className="text-[#d1d1d1] font-semibold">
-          &#8377;{props.package}
-        </div>
+        <div className="text-[#d1d1d1] text-sm">&#8377;{props.package}</div>
         <div className="flex text-sm gap-1 items-center text-[#888888]">
-          <Clock size={15} /> {props.applied ? "Applied" : "Posted"}{" "}
+          <Clock size={13} />
+          {props.applied
+            ? "Applied "
+            : props.offered
+            ? "Interviewed "
+            : "Posted "}{" "}
           {props.postedDaysAgo} Month Ago
         </div>
       </div>
+      <Divider size="xs" color="#4f4f4f" />
       {props.offered ? (
         <div className="flex gap-2">
           <Button variant="outline" radius="sm" color="#ffbd20" fullWidth>
@@ -55,6 +59,12 @@ const Card = (props: any) => {
           <Button variant="light" radius="sm" color="#ffbd20" fullWidth>
             Decline
           </Button>
+        </div>
+      ) : props.interviewing ? (
+        <div className="flex items-center gap-2  text-[#d1d1d1] text-sm ">
+          <CalendarDays className=" text-[#ffbd20] w-5 h-5" /> Sun 25 August
+          &bull;
+          <span className="text-[#888888]">10:00 AM</span>
         </div>
       ) : (
         <Button variant="light" radius="sm" color="#ffbd20">

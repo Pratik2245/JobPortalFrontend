@@ -1,10 +1,4 @@
-import {
-  createTheme,
-  Divider,
-  MantineProvider,
-  Slider,
-  Text,
-} from "@mantine/core";
+import { createTheme, Divider, MantineProvider } from "@mantine/core";
 import "@mantine/dates/styles.css";
 import "@mantine/core/styles.css";
 import "@mantine/carousel/styles.css";
@@ -23,6 +17,7 @@ import ApplyJobPage from "./Pages/ApplyJobPage";
 import CompanyPage from "./Pages/CompanyPage";
 import PostedJobPage from "./Pages/PostedJobPage";
 import JobHistoryPage from "./Pages/JobHistoryPage";
+import SignUpPage from "./Pages/SignUpPage";
 
 function App() {
   const theme = createTheme({
@@ -72,6 +67,7 @@ function App() {
               <Route path="/talent-profile" element={<TalentProfilePage />} />
               <Route path="/job-details" element={<JobDetails />} />
               <Route path="/job-history" element={<JobHistoryPage />} />
+              <Route path="/signup" element={<SignUpPage />} />
               <Route path="/posted-jobs" element={<PostedJobPage />} />
               <Route path="/company" element={<CompanyPage />} />
               <Route path="/apply-job" element={<ApplyJobPage />} />
