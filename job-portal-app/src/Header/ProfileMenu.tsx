@@ -1,12 +1,10 @@
-import { Menu, Button, Text, Avatar, Switch } from "@mantine/core";
+import { Menu, Avatar, Switch } from "@mantine/core";
 import {
-  ArrowLeftRight,
   FileCheck,
   LogOut,
   MessageCircle,
   Moon,
   Sun,
-  TrashIcon,
   UserPen,
 } from "lucide-react";
 import { useState } from "react";

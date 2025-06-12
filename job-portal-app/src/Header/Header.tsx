@@ -1,4 +1,4 @@
-import { Avatar, Indicator } from "@mantine/core";
+import { Indicator } from "@mantine/core";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { Anchor, Settings } from "lucide-react";
 import NavLinks from "./NavLinks";

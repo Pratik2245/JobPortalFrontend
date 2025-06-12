@@ -1,11 +1,4 @@
-import {
-  Anchor,
-  Button,
-  Checkbox,
-  PasswordInput,
-  rem,
-  TextInput,
-} from "@mantine/core";
+import { Button, PasswordInput, rem, TextInput } from "@mantine/core";
 import { AtSign, LockKeyhole } from "lucide-react";
 import { Link } from "react-router-dom";
 const Login = () => {

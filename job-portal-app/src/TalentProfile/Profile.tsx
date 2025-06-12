@@ -2,7 +2,6 @@ import { Button, Divider } from "@mantine/core";
 import { Briefcase, BriefcaseBusiness, MapPin } from "lucide-react";
 import ExpCard from "../FindTalent/ExpCard";
 import CertificationCard from "../FindTalent/CertificationCard";
-import RecommendedTalent from "./RecommendedTalent";
 
 const Profile = (props: any) => {
   console.log(props.skills);
@@ -62,8 +61,8 @@ const Profile = (props: any) => {
         <div className="mt-7">
           <div className="font-semibold text-xl mb-3">Certifications</div>
           <div className="flex flex-col gap-4">
-            {props.certifications.map((certi: any, index: any) => (
-              <CertificationCard key={index} {...certi} />
+            {props.certifications.map((item: any, index: any) => (
+              <CertificationCard key={index} {...item} />
             ))}
           </div>
         </div>
