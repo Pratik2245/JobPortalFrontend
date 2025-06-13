@@ -8,6 +8,10 @@ const SelectInput = (props: any) => {
     setSearch(props.value);
   }, []);
 
+  console.log(props.options);
+  console.log(props.value);
+  console.log(props.value);
+
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
   });
@@ -19,8 +23,10 @@ const SelectInput = (props: any) => {
   const exactOptionMatch = data.some((item) => item === search);
   const filteredOptions = exactOptionMatch
     ? data
-    : data.filter((item) =>
-        item.toLowerCase().includes(search.toLowerCase().trim())
+    : data.filter(
+        (item) =>
+          typeof item === "string" &&
+          item.toLowerCase().includes(search.toLowerCase().trim())
       );
 
   const options = filteredOptions.map((item) => (
@@ -48,7 +54,7 @@ const SelectInput = (props: any) => {
       <Combobox.Target>
         <InputBase
           withAsterisk
-          leftSection={<props.leftSection />}
+          leftSection={props.leftSection ? <props.leftSection /> : null}
           label={props.label}
           rightSection={<Combobox.Chevron />}
           value={search}
