@@ -1,21 +1,19 @@
 import axios from "axios";
-const baseUrl = "http://localhost:8081";
-const registerUser = (user: any) => {
-  return axios
-    .post(`${baseUrl}/users/register`, user)
-    .then((res) => res.data)
-    .catch((error) => {
-      throw error;
-    });
+const baseUrl = "http://localhost:8081/";
+export const registerUser = async (user: any) => {
+  try {
+    return await axios.post(`${baseUrl}users/register`, user);
+  } catch (error: any) {
+    console.error("Error registering user:", error.message);
+    throw error;
+  }
 };
 
-const loginUser = (login: any) => {
-  return axios
+export const loginUser = async (login: any) => {
+  return await axios
     .post(`${baseUrl}/users/login`, login)
     .then((res) => res.data)
     .catch((error) => {
       throw error;
     });
 };
-
-export default { registerUser, loginUser };
