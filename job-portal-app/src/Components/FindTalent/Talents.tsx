@@ -1,5 +1,5 @@
 import { talents } from "../../Data/TalentData";
-import MostRecent from "../../FindJobs/MostRecent";
+import MostRecent from "../FindJobs/MostRecent";
 import TalentCard from "./TalentCard";
 
 const Talents = () => {

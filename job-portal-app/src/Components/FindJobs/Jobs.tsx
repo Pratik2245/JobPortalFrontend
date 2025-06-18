@@ -1,4 +1,4 @@
-import { jobList } from "../Data/JobsData";
+import { jobList } from "../../Data/JobsData";
 import JobCard from "./JobCard";
 import MostRecent from "./MostRecent";
 

@@ -1,8 +1,8 @@
 import { Divider, Input, RangeSlider } from "@mantine/core";
 import React, { useState } from "react";
-import MultiInput from "../../FindJobs/MultiInput";
 import { searchFields } from "../../Data/TalentData";
 import { CircleUser } from "lucide-react";
+import MultiInput from "../FindJobs/MultiInput";
 
 const SearchBar = () => {
   const [value, setValue] = useState<[number, number]>([0, 80]);
