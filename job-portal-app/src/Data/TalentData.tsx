@@ -1,4 +1,4 @@
-import { BriefcaseBusiness, MapPin, Search, Star } from "lucide-react";
+import { MapPin, Search, Star } from "lucide-react";
 const searchFields = [
   {
     title: "Job Title",

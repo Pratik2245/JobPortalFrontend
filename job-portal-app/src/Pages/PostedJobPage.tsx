@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import PostedJob from "../PostedJob/PostedJob";
-import PostJobDesc from "../PostedJob/PostJobDesc";
+import PostedJob from "../Components/PostedJob/PostedJob";
+import PostJobDesc from "../Components/PostedJob/PostJobDesc";
 
 const PostedJobPage = () => {
   return (

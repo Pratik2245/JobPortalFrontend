@@ -1,5 +1,5 @@
 import { Divider } from "@mantine/core";
-import PostJob from "../PostJobs/PostJob";
+import PostJob from "../Components/PostJobs/PostJob";
 
 const PostJobs = () => {
   return (

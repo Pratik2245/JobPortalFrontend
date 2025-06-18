@@ -1,9 +1,9 @@
 import { Button, Divider } from "@mantine/core";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
-import Profile from "../TalentProfile/Profile";
+import Profile from "../Components/TalentProfile/Profile";
 import { profile } from "../Data/TalentData";
-import RecommendedTalent from "../TalentProfile/RecommendedTalent";
+import RecommendedTalent from "../Components/TalentProfile/RecommendedTalent";
 
 const TalentProfilePage = () => {
   return (

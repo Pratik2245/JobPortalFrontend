@@ -1,7 +1,7 @@
 import { Button, Divider } from "@mantine/core";
 import { ArrowLeft, ArrowLeftToLine } from "lucide-react";
 import { Link } from "react-router-dom";
-import Company from "../CompanyProfile/Company";
+import Company from "../Components/CompanyProfile/Company";
 
 const CompanyPage = () => {
   return (

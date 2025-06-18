@@ -1,8 +1,8 @@
 import { Button, Divider } from "@mantine/core";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
-import JobDesc from "../JobDescription/JobDesc";
-import RecommendedJobs from "../JobDescription/RecommendedJobs";
+import JobDesc from "../Components/JobDescription/JobDesc";
+import RecommendedJobs from "../Components/JobDescription/RecommendedJobs";
 
 const JobDetails = () => {
   return (

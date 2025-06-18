@@ -1,7 +1,7 @@
 import { Button } from "@mantine/core";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
-import ApplyJobForComp from "../ApplyJob/ApplyJobForComp";
+import ApplyJobForComp from "../Components/CompanyProfile/ApplyJob/ApplyJobForComp";
 
 const ApplyJobPage = () => {
   return (
