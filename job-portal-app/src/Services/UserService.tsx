@@ -11,7 +11,7 @@ export const registerUser = async (user: any) => {
 
 export const loginUser = async (login: any) => {
   return await axios
-    .post(`${baseUrl}/users/login`, login)
+    .post(`${baseUrl}users/login`, login)
     .then((res) => res.data)
     .catch((error) => {
       throw error;
