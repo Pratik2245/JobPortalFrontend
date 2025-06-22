@@ -84,8 +84,22 @@ const SignUp = () => {
             }
           );
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          toast.error("Registration failed. Please try again later.", {
+            position: "top-center",
+            autoClose: 5000,
+            theme: "colored",
+          });
+          console.log(err);
+        });
       console.log(response);
+    } else {
+      const firstError = Object.values(newFormError).find((msg) => msg);
+      toast.error(firstError || "Please fix the form errors", {
+        position: "top-center",
+        autoClose: 4000,
+        theme: "colored",
+      });
     }
   };
 
