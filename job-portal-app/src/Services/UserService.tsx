@@ -10,10 +10,11 @@ export const registerUser = async (user: any) => {
 };
 
 export const loginUser = async (login: any) => {
-  return await axios
-    .post(`${baseUrl}users/login`, login)
-    .then((res) => res.data)
-    .catch((error) => {
-      throw error;
-    });
+  try {
+    console.log(login);
+    return await axios.post(`${baseUrl}users/login`, login);
+  } catch (error: any) {
+    console.log(error.message);
+    throw error;
+  }
 };

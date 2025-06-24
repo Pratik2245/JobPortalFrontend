@@ -23,3 +23,16 @@ export const signUpValidation = (name: string, value: string) => {
       return "";
   }
 };
+
+export const loginValidation = (name: string, value: string) => {
+  switch (name) {
+    case "email":
+      if (value.length == 0) return "Email is Required";
+      return "";
+
+    case "password":
+      if (value.length == 0) return "Enter a Valid Password";
+      return "";
+  }
+  return "";
+};

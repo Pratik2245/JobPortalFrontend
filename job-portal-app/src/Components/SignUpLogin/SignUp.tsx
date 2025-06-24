@@ -11,7 +11,7 @@ import {
 import { toast } from "react-toastify";
 import { AtSign, LockKeyhole } from "lucide-react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { registerUser } from "../../Services/UserService";
 import { signUpValidation } from "../../Services/FormValidation";
 
@@ -53,6 +53,8 @@ const SignUp = () => {
     }
   };
 
+  //navigate to login
+  const navigate = useNavigate();
   const handleButtonSubmit = () => {
     let valid = true,
       newFormError: { [key: string]: string } = {};
@@ -67,6 +69,10 @@ const SignUp = () => {
     if (valid == true) {
       const response = registerUser(formData)
         .then((res) => {
+          //setting to blank after successfully registration
+          setFormData(form);
+          setError(form);
+
           console.log(res);
           toast.success(
             <div>
@@ -83,13 +89,26 @@ const SignUp = () => {
               theme: "light",
             }
           );
+          setTimeout(() => {
+            navigate("/login");
+          }, 5000);
         })
         .catch((err) => {
-          toast.error("Registration failed. Please try again later.", {
-            position: "top-center",
-            autoClose: 5000,
-            theme: "colored",
-          });
+          toast.error(
+            <div>
+              <div className="font-semibold text-black text-base">
+                Registration Failed
+              </div>
+              <div className="text-sm text-gray-800">
+                {err.response.data.errorMessage}
+              </div>
+            </div>,
+            {
+              position: "top-center",
+              autoClose: 5000,
+              theme: "colored",
+            }
+          );
           console.log(err);
         });
       console.log(response);
@@ -183,7 +202,14 @@ const SignUp = () => {
         </Button>
         <div className="mx-auto">
           Have and account ?
-          <Link to="/login" className="text-[#ffbd20] hover:underline">
+          <Link
+            to="/login"
+            onClick={() => {
+              setFormData(form);
+              setError(form);
+            }}
+            className="text-[#ffbd20] hover:underline"
+          >
             Login
           </Link>
         </div>
