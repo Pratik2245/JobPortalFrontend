@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { loginValidation } from "../../Services/FormValidation";
 import { toast } from "react-toastify";
 import { loginUser } from "../../Services/UserService";
+import { useDisclosure } from "@mantine/hooks";
+import ResetPassword from "./ResetPassword";
 const Login = () => {
   const loginForm = {
     email: "",
@@ -19,7 +21,8 @@ const Login = () => {
   const [loginError, setLoginError] = useState<{ [key: string]: string }>(
     loginForm
   );
-
+  // disclosure hook for opening the modal or forgot password 
+  const [opened, { open, close }] = useDisclosure(false);
   const handleOnChange = (event: any) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -92,6 +95,7 @@ const Login = () => {
       });
   };
   return (
+    <>
     <div className="w-1/2 flex flex-col justify-center px-20 gap-3">
       <div className="text-2xl font-semibold">Login </div>
       <TextInput
@@ -133,7 +137,10 @@ const Login = () => {
           SignUp
         </Link>
       </div>
+      <div onClick={open} className="text-[#ffbd20] hover:underline text-center cursor-pointer">Forgot password?</div>
     </div>
+      <ResetPassword title="Reset Password" opened={opened} close={close}/> 
+      </>
   );
 };
 
