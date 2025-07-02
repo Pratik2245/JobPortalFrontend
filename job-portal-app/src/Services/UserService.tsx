@@ -30,7 +30,7 @@ export const sentOtp= async (email:any)=>{
 
 export const verifyOtp= async (email:any,otp:any)=>{
     try{
-      return await axios.post(`${baseUrl}/sendOtp/${email}/${otp}`);
+      return await axios.get(`${baseUrl}/verifyOtp/${email}/${otp}`);
     }catch(error){
       console.log(error);
       throw error;
