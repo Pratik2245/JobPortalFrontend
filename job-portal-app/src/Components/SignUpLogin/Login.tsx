@@ -53,7 +53,7 @@ const Login = () => {
       );
       return;
     }
-    const response = loginUser(loginData)
+     loginUser(loginData)
       .then((res) => {
         setLoginData(loginForm);
         setLoginError(loginForm);
@@ -139,7 +139,7 @@ const Login = () => {
       </div>
       <div onClick={open} className="text-[#ffbd20] hover:underline text-center cursor-pointer">Forgot password?</div>
     </div>
-      <ResetPassword title="Reset Password" opened={opened} close={close}/> 
+      <ResetPassword opened={opened} close={close}/> 
       </>
   );
 };
