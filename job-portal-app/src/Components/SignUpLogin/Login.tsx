@@ -54,7 +54,7 @@ const Login = () => {
       return;
     }
      loginUser(loginData)
-      .then((res) => {
+      .then(() => {
         setLoginData(loginForm);
         setLoginError(loginForm);
         toast.success(
