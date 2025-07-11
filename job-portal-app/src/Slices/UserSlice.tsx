@@ -10,7 +10,7 @@ const UserSlice = createSlice({
       state=getItem("user");
       return state;
     },
-    removeUser:(state,action)=>{
+    removeUser:(state)=>{
       removeItem("user");
       state=null;
       return state;

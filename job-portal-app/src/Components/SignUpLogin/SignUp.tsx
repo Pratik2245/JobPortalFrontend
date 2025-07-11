@@ -3,6 +3,7 @@ import {
   Button,
   Checkbox,
   Group,
+  LoadingOverlay,
   PasswordInput,
   Radio,
   rem,
@@ -16,6 +17,7 @@ import { registerUser } from "../../Services/UserService";
 import { signUpValidation } from "../../Services/FormValidation";
 
 const SignUp = () => {
+  const [loading, setLoading] = useState(false);
   const form = {
     name: "",
     email: "",
@@ -25,7 +27,6 @@ const SignUp = () => {
   };
   const [formData, setFormData] = useState<{ [key: string]: string }>(form);
   const [error, setError] = useState<{ [key: string]: string }>(form);
-
   const handleChange = (event: any) => {
     if (typeof event == "string") {
       setFormData({ ...formData, accountType: event });
@@ -67,6 +68,7 @@ const SignUp = () => {
       if (newFormError[key]) valid = false;
     }
     if (valid == true) {
+      setLoading(true);
       const response = registerUser(formData)
         .then((res) => {
           //setting to blank after successfully registration
@@ -90,10 +92,12 @@ const SignUp = () => {
             }
           );
           setTimeout(() => {
+            setLoading(false);
             navigate("/login");
           }, 5000);
         })
         .catch((err) => {
+          setLoading(false);
           toast.error(
             <div>
               <div className="font-semibold text-black text-base">
@@ -124,6 +128,13 @@ const SignUp = () => {
 
   return (
     <>
+      <LoadingOverlay
+        visible={loading}
+        zIndex={1000}
+        className="translate-x-1/2"
+        overlayProps={{ radius: "sm", blur: 2 }}
+        loaderProps={{ color: "pink", type: "bars" }}
+      />
       <div className="w-1/2 flex flex-col justify-center px-20 gap-3">
         <div className="text-2xl font-semibold">Create Account</div>
         <TextInput
@@ -197,7 +208,7 @@ const SignUp = () => {
             </>
           }
         />
-        <Button variant="filled" onClick={handleButtonSubmit}>
+        <Button variant="filled" loading={loading} onClick={handleButtonSubmit}>
           Sign Up
         </Button>
         <div className="mx-auto">

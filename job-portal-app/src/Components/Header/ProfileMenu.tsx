@@ -8,16 +8,20 @@ import {
   UserPen,
 } from "lucide-react";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { removeUser } from "../../Slices/UserSlice";
 
 const ProfileMenu = () => {
+  const dispatch = useDispatch();
+  const user = useSelector((state: any) => state.user);
   const [opened, setOpened] = useState(false);
   const [checked, setChecked] = useState(false);
   return (
     <Menu shadow="md" width={200} opened={opened} onChange={setOpened}>
       <Menu.Target>
         <div className="flex  cursor-pointer items-center gap-2">
-          <div>Pratik</div>
+          <div>{user.name}</div>
           <div>
             <Avatar src="avatar1.png" alt="it's me" />
           </div>
@@ -50,7 +54,11 @@ const ProfileMenu = () => {
 
         <Menu.Divider />
 
-        <Menu.Item color="red" leftSection={<LogOut size={14} />}>
+        <Menu.Item
+          onClick={() => dispatch(removeUser())}
+          color="red"
+          leftSection={<LogOut size={14} />}
+        >
           Logout
         </Menu.Item>
       </Menu.Dropdown>
