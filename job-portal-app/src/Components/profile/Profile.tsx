@@ -1,49 +1,54 @@
 import {
   ActionIcon,
-  Button,
+  Avatar,
   Divider,
-  TagsInput,
+  FileInput,
+  Indicator,
   Textarea,
 } from "@mantine/core";
-import {
-  Briefcase,
-  BriefcaseBusiness,
-  MapPin,
-  Pencil,
-  Plus,
-  Save,
-} from "lucide-react";
-import { profile } from "../../Data/TalentData";
-import { useState } from "react";
-import SelectInput from "./SelectInput";
+import { Button, TagsInput } from "@mantine/core";
+import { Pencil, Plus, Save } from "lucide-react";
+import { useEffect, useState } from "react";
 import ExpCard from "./ExpCard";
 
 import ExpInput from "./ExpInput";
 import CertificationCard from "./CertificationCard";
 import CertiInput from "./CertiInput";
-import fields from "../../Data/Profile";
+import { getUserData } from "../../Services/ProfileServices";
+import { useDispatch, useSelector } from "react-redux";
+import Info from "./Info";
+
+import { setProfile } from "../../Slices/ProfileSlice";
 
 const Profile = () => {
-  const [about, setAbout] = useState(
-    "As a Software Engineer at Google, I specialize in building scalable and high-performance applications. My expertise lies in integrating front-end and back-end technologies to deliver seamless user experiences. With a strong foundation in React and SpringBoot, and a focus on MongoDB for database solutions, I am passionate about leveraging the latest technologies to solve complex problems and drive innovation. My goal is to create impactful software that enhances productivity and meets user needs effectively."
-  );
-  const [skill, setSkill] = useState<string[]>([
-    "React",
-    "SpringBoot",
-    "MongoDB",
-    "HTML",
-    "CSS",
-    "JavaScript",
-    "Node.js",
-    "Express",
-    "MySQL",
-    "Python",
-    "Django",
-    "Figma",
-    "Sketch",
-    "Docker",
-    "AWS",
-  ]);
+  // const [skill, setSkill] = useState<string[]>([
+  //   "React",
+  //   "SpringBoot",
+  //   "MongoDB",
+  //   "HTML",
+  //   "CSS",
+  //   "JavaScript",
+  //   "Node.js",
+  //   "Express",
+  //   "MySQL",
+  //   "Python",
+  //   "Django",
+  //   "Figma",
+  //   "Sketch",
+  //   "Docker",
+  //   "AWS",
+  // ]);
+  const dispatch = useDispatch();
+  // first get the user and then give it to the useEffect
+  const user = useSelector((state: any) => state.user);
+  const UserProfile = useSelector((state: any) => state.profile);
+  useEffect(() => {
+    getUserData(user.id)
+      .then((data: any) => {
+        dispatch(setProfile(data));
+      })
+      .catch((err) => console.log(err));
+  }, []);
   const [edit, setEdit] = useState([false, false, false, false, false]);
   const handleEdit = (index: any) => {
     const newEdit = { ...edit };
@@ -52,55 +57,40 @@ const Profile = () => {
   };
   const [exp, setExp] = useState(false);
   const [addCertificate, setAddCertificate] = useState(false);
-  const select = fields;
-
   return (
     <>
-      <div className="w-4/5 mx-auto">
+      <div className="w-4/5 mt-5 mx-auto">
         <div className="relative">
           <img className="rounded-t-2xl" src="/Profile/banner.jpg" alt="" />
-          <img
-            className="rounded-full w-48 mb-4 h-48 absolute -bottom-1/3 left-3 border-[#2d2d2d] border-8"
-            src="/avatar.png"
-            alt=""
-          />
-        </div>
-        <div className="flex mt-16 justify-between items-center">
-          <div className="text-2xl font-semibold mb-3">Jarrod Wood</div>
-
-          <ActionIcon
-            onClick={() => handleEdit(0)}
-            variant="transparent"
-            size="lg"
-          >
-            {edit[0] ? (
-              <Save color="#ffbd20" style={{ width: "80%", height: "80%" }} />
-            ) : (
-              <Pencil color="#ffbd20" style={{ width: "70%", height: "70%" }} />
-            )}
-          </ActionIcon>
-        </div>
-        {edit[0] ? (
-          <>
-            <div className="flex gap-10 [&>*]:w-1/2">
-              <SelectInput {...select[0]} />
-              <SelectInput {...select[1]} />
-            </div>
-            <SelectInput {...select[2]} />
-          </>
-        ) : (
-          <div className="[&>div]:flex [&>div]:gap-2 [&>div]:mb-1 mb-7">
-            <div className="">
-              <BriefcaseBusiness /> Software Engineer &bull; Google
-            </div>
-            <div className="">
-              <MapPin /> New York, United States
-            </div>
-            <div className="">
-              <Briefcase /> Experience: 2 Years
-            </div>
+          <div className="absolute -bottom-1/3 left-3">
+            <Indicator
+              className="[&_.mantine-Indicator-indicator]:!border-4 [&_img]:hover:opacity-90"
+              autoContrast
+              inline
+              offset={30}
+              label={<Pencil className="w-4/5 h-4/5 " />}
+              size={45}
+              position="bottom-end"
+              color="#ffbd20"
+              withBorder
+            >
+              <Avatar
+                className=" !w-48  !h-48 absolute rounded-full left-3 border-[#2d2d2d] border-8"
+                src="/avatar.png"
+                alt=""
+              />
+              <FileInput
+                variant="unstyled"
+                size="lg"
+                radius="xl"
+                accept="image/png,image/jpeg"
+                className="absolute font-semibold bottom-2 right-2 z-[201] w-12 [&_div]:text-transparent"
+              />
+            </Indicator>
           </div>
-        )}
+        </div>
+        {/* //top info of profile */}
+        <Info />
 
         <Divider />
         <div className="mt-7 mb-7">
@@ -125,13 +115,12 @@ const Profile = () => {
             <Textarea
               className="font-semibold"
               placeholder="Tell us something about you..."
-              value={about}
+              value={UserProfile.about}
               minRows={3}
               autosize
-              onChange={(event) => setAbout(event.currentTarget.value)}
             />
           ) : (
-            about
+            UserProfile.about
           )}
         </div>
         <Divider />
@@ -156,13 +145,12 @@ const Profile = () => {
           {edit[2] ? (
             <TagsInput
               placeholder="Enter Skill"
-              value={skill}
-              onChange={setSkill}
+              value={UserProfile.skills}
               splitChars={[",", " ", "|"]}
             />
           ) : (
             <div className="flex flex-wrap  gap-3 ">
-              {skill?.map((skill: any, index: any) => (
+              {UserProfile?.skills?.map((skill: any, index: number) => (
                 <Button key={index} variant="light" radius="xl" color="#ffbd20">
                   {skill}
                 </Button>
@@ -202,7 +190,7 @@ const Profile = () => {
             </div>
           </div>
           <div className="flex flex-col gap-4">
-            {profile.experience.map((exp: any, index: any) => (
+            {UserProfile?.experiences?.map((exp: any, index: number) => (
               <ExpCard key={index} {...exp} edit={edit[3]} />
             ))}
           </div>
@@ -240,7 +228,7 @@ const Profile = () => {
             </div>
           </div>
           <div className="flex flex-col gap-4">
-            {profile.certifications.map((item: any, index: any) => (
+            {UserProfile?.certifications?.map((item: any, index: number) => (
               <CertificationCard edit={edit[4]} key={index} {...item} />
             ))}
             {addCertificate && <CertiInput setEdit={setAddCertificate} />}
