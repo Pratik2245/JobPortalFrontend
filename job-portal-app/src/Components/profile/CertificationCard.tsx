@@ -1,5 +1,6 @@
 import { ActionIcon } from "@mantine/core";
 import { Trash } from "lucide-react";
+import { formatDate } from "../../Services/Utilities";
 
 const CertificationCard = (props: any) => {
   return (
@@ -16,7 +17,7 @@ const CertificationCard = (props: any) => {
         </div>
         <div className="flex  items-center gap-2">
           <div className="">
-            <div className="text-sm">Issued {props.issueDate}</div>
+            <div className="text-sm">Issued {formatDate(props.issueDate)}</div>
             <div className="text-sm">ID:{props.certificateId}</div>
           </div>
           {props.edit && (

@@ -13,7 +13,7 @@ const getUserData = async (id: number) => {
 
 const updateProfile = async (profile: any) => {
   return await axios
-    .post(`${baseUrl}/update`, profile)
+    .post(`${baseUrl}update`, profile)
     .then((res) => console.log(res.data))
     .catch((err) => console.log(err));
 };

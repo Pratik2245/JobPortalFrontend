@@ -14,7 +14,6 @@ const fields = [
       "Content Writer",
       "Customer Support",
     ],
-    value: "Software Engineer",
     leftSection: Briefcase,
   },
   {
@@ -31,7 +30,6 @@ const fields = [
       "Apple",
       "Spotify",
     ],
-    value: "Google",
     leftSection: Briefcase,
   },
   {
@@ -47,7 +45,6 @@ const fields = [
       "Sydney",
       "Toronto",
     ],
-    value: "New York, United States",
     leftSection: MapPin,
   },
 ];
