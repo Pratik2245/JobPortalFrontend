@@ -6,7 +6,6 @@ import {
   Check,
   MapPin,
   Pencil,
-  Save,
   X,
 } from "lucide-react";
 import SelectInput from "./SelectInput";

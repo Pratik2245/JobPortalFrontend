@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Info from "./Info";
 
 import { setProfile } from "../../Slices/ProfileSlice";
+import About from "./About";
 
 const Profile = () => {
   // const [skill, setSkill] = useState<string[]>([
@@ -93,36 +94,7 @@ const Profile = () => {
         <Info />
 
         <Divider />
-        <div className="mt-7 mb-7">
-          <div className="text-xl font-semibold flex justify-between mb-2 text-justify">
-            About
-            <ActionIcon
-              onClick={() => handleEdit(1)}
-              variant="transparent"
-              size="lg"
-            >
-              {edit[1] ? (
-                <Save color="#ffbd20" style={{ width: "80%", height: "80%" }} />
-              ) : (
-                <Pencil
-                  color="#ffbd20"
-                  style={{ width: "70%", height: "70%" }}
-                />
-              )}
-            </ActionIcon>
-          </div>
-          {edit[1] ? (
-            <Textarea
-              className="font-semibold"
-              placeholder="Tell us something about you..."
-              value={UserProfile.about}
-              minRows={3}
-              autosize
-            />
-          ) : (
-            UserProfile.about
-          )}
-        </div>
+        <About />
         <Divider />
         <div className="mt-7 mb-7">
           <div className="text-xl font-semibold mb-4 flex justify-between">
