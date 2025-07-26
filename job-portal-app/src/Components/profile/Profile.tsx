@@ -4,10 +4,9 @@ import {
   Divider,
   FileInput,
   Indicator,
-  Textarea,
 } from "@mantine/core";
 import { Button, TagsInput } from "@mantine/core";
-import { Pencil, Plus, Save } from "lucide-react";
+import { Pencil, Plus, Save, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import ExpCard from "./ExpCard";
 
@@ -20,25 +19,10 @@ import Info from "./Info";
 
 import { setProfile } from "../../Slices/ProfileSlice";
 import About from "./About";
+import Skills from "./Skills";
+import Experience from "./Experience";
 
 const Profile = () => {
-  // const [skill, setSkill] = useState<string[]>([
-  //   "React",
-  //   "SpringBoot",
-  //   "MongoDB",
-  //   "HTML",
-  //   "CSS",
-  //   "JavaScript",
-  //   "Node.js",
-  //   "Express",
-  //   "MySQL",
-  //   "Python",
-  //   "Django",
-  //   "Figma",
-  //   "Sketch",
-  //   "Docker",
-  //   "AWS",
-  // ]);
   const dispatch = useDispatch();
   // first get the user and then give it to the useEffect
   const user = useSelector((state: any) => state.user);
@@ -56,7 +40,7 @@ const Profile = () => {
     newEdit[index] = !newEdit[index];
     setEdit(newEdit);
   };
-  const [exp, setExp] = useState(false);
+
   const [addCertificate, setAddCertificate] = useState(false);
   return (
     <>
@@ -96,78 +80,9 @@ const Profile = () => {
         <Divider />
         <About />
         <Divider />
-        <div className="mt-7 mb-7">
-          <div className="text-xl font-semibold mb-4 flex justify-between">
-            Skills{" "}
-            <ActionIcon
-              onClick={() => handleEdit(2)}
-              variant="transparent"
-              size="lg"
-            >
-              {edit[2] ? (
-                <Save color="#ffbd20" style={{ width: "80%", height: "80%" }} />
-              ) : (
-                <Pencil
-                  color="#ffbd20"
-                  style={{ width: "70%", height: "70%" }}
-                />
-              )}
-            </ActionIcon>
-          </div>
-          {edit[2] ? (
-            <TagsInput
-              placeholder="Enter Skill"
-              value={UserProfile.skills}
-              splitChars={[",", " ", "|"]}
-            />
-          ) : (
-            <div className="flex flex-wrap  gap-3 ">
-              {UserProfile?.skills?.map((skill: any, index: number) => (
-                <Button key={index} variant="light" radius="xl" color="#ffbd20">
-                  {skill}
-                </Button>
-              ))}
-            </div>
-          )}
-        </div>
+        <Skills />
         <Divider />
-        <div className="mt-7 ">
-          <div className="font-semibold text-xl flex justify-between mb-3">
-            Experience
-            <div className="flex">
-              <ActionIcon
-                onClick={() => setExp(true)}
-                variant="transparent"
-                size="lg"
-              >
-                <Plus className="w-4/5 h-4/5" />
-              </ActionIcon>
-              <ActionIcon
-                onClick={() => handleEdit(3)}
-                variant="transparent"
-                size="lg"
-              >
-                {edit[3] ? (
-                  <Save
-                    color="#ffbd20"
-                    style={{ width: "80%", height: "80%" }}
-                  />
-                ) : (
-                  <Pencil
-                    color="#ffbd20"
-                    style={{ width: "70%", height: "70%" }}
-                  />
-                )}
-              </ActionIcon>
-            </div>
-          </div>
-          <div className="flex flex-col gap-4">
-            {UserProfile?.experiences?.map((exp: any, index: number) => (
-              <ExpCard key={index} {...exp} edit={edit[3]} />
-            ))}
-          </div>
-          {exp && <ExpInput add setEdit={setExp} />}
-        </div>
+        <Experience />
         <Divider />
         <div className="mt-7">
           <div className="font-semibold flex justify-between text-xl mb-3">
@@ -186,10 +101,7 @@ const Profile = () => {
                 size="lg"
               >
                 {edit[4] ? (
-                  <Save
-                    color="#ffbd20"
-                    style={{ width: "80%", height: "80%" }}
-                  />
+                  <X color="#ffbd20" style={{ width: "80%", height: "80%" }} />
                 ) : (
                   <Pencil
                     color="#ffbd20"

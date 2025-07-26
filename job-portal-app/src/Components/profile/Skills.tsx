@@ -1,18 +1,22 @@
-import { ActionIcon, Textarea } from "@mantine/core";
+import { ActionIcon, Button, TagsInput } from "@mantine/core";
 import { Check, Pencil, X } from "lucide-react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { changeProfile } from "../../Slices/ProfileSlice";
 import { toast } from "react-toastify";
 
-const About = () => {
+const Skills = () => {
   const [edit, setEdit] = useState(false);
   const dispatch = useDispatch();
+  const [skillsData, setSkills] = useState<string[]>([]);
   const profile = useSelector((state: any) => state.profile);
-  const [about, setAbout] = useState("");
+  const handleEdit = () => {
+    setEdit(!edit);
+    setSkills(profile.skills);
+  };
   const handleSave = () => {
     setEdit(false);
-    const updatedProfile = { ...profile, about: about };
+    const updatedProfile = { ...profile, skills: skillsData };
     dispatch(changeProfile(updatedProfile));
     console.log(updatedProfile);
     toast.success(
@@ -29,14 +33,10 @@ const About = () => {
       }
     );
   };
-  const handleEdit = () => {
-    setEdit(!edit);
-    setAbout(profile.about);
-  };
   return (
     <div className="mt-7 mb-7">
-      <div className="text-xl font-semibold flex justify-between mb-2 text-justify">
-        About
+      <div className="text-xl font-semibold mb-4 flex justify-between">
+        Skills{" "}
         <div className="">
           {edit && (
             <ActionIcon
@@ -64,19 +64,23 @@ const About = () => {
         </div>
       </div>
       {edit ? (
-        <Textarea
-          className="font-semibold"
-          placeholder="Tell us something about you..."
-          value={about}
-          onChange={(event) => setAbout(event.target.value)}
-          minRows={3}
-          autosize
+        <TagsInput
+          placeholder="Enter Skill"
+          value={skillsData}
+          onChange={setSkills}
+          splitChars={[",", " ", "|"]}
         />
       ) : (
-        profile.about
+        <div className="flex flex-wrap  gap-3 ">
+          {profile?.skills?.map((skill: any, index: number) => (
+            <Button key={index} variant="light" radius="xl" color="#ffbd20">
+              {skill}
+            </Button>
+          ))}
+        </div>
       )}
     </div>
   );
 };
 
-export default About;
+export default Skills;

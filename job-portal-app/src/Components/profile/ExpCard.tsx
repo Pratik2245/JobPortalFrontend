@@ -5,22 +5,24 @@ import { formatDate } from "../../Services/Utilities";
 
 const ExpCard = (props: any) => {
   const [edit, setEdit] = useState(false);
+
   return !edit ? (
     <div className="flex flex-col gap-3">
       <div className="flex justify-between mb-2">
-        <div className="flex gap-2 items-center ">
+        <div className="flex gap-2 items-center">
           <div className="bg-[#454545] rounded-full">
-            <img className="h-7 " src={`/Icons/${props.company}.png`} alt="" />
+            <img className="h-7" src={`/Icons/${props.company}.png`} alt="" />
           </div>
-          <div className="">
+          <div>
             <div className="font-semibold">{props.title}</div>
             <div className="text-xs text-[#b0b0b0]">
-              Apple &#183;{props.location}
+              {props.company} &#183; {props.location}
             </div>
           </div>
         </div>
         <div className="text-sm">
-          {formatDate(props.startDate)} &#45;{formatDate(props.endDate)}
+          {formatDate(props.startDate)} &#45;{" "}
+          {props.working ? "Present" : formatDate(props.endDate)}
         </div>
       </div>
       <div className="mb-7 text-sm text-justify">{props.description}</div>
@@ -40,7 +42,7 @@ const ExpCard = (props: any) => {
       )}
     </div>
   ) : (
-    <ExpInput setEdit={setEdit} />
+    <ExpInput {...props} setEdit={setEdit} />
   );
 };
 
