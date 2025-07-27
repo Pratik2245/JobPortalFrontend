@@ -21,6 +21,7 @@ import { setProfile } from "../../Slices/ProfileSlice";
 import About from "./About";
 import Skills from "./Skills";
 import Experience from "./Experience";
+import Certification from "./Certification";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -41,7 +42,7 @@ const Profile = () => {
     setEdit(newEdit);
   };
 
-  const [addCertificate, setAddCertificate] = useState(false);
+  
   return (
     <>
       <div className="w-4/5 mt-5 mx-auto">
@@ -84,40 +85,7 @@ const Profile = () => {
         <Divider />
         <Experience />
         <Divider />
-        <div className="mt-7">
-          <div className="font-semibold flex justify-between text-xl mb-3">
-            Certifications{" "}
-            <div className="flex">
-              <ActionIcon
-                onClick={() => setAddCertificate(true)}
-                variant="transparent"
-                size="lg"
-              >
-                <Plus className="w-4/5 h-4/5" />
-              </ActionIcon>
-              <ActionIcon
-                onClick={() => handleEdit(4)}
-                variant="transparent"
-                size="lg"
-              >
-                {edit[4] ? (
-                  <X color="#ffbd20" style={{ width: "80%", height: "80%" }} />
-                ) : (
-                  <Pencil
-                    color="#ffbd20"
-                    style={{ width: "70%", height: "70%" }}
-                  />
-                )}
-              </ActionIcon>
-            </div>
-          </div>
-          <div className="flex flex-col gap-4">
-            {UserProfile?.certifications?.map((item: any, index: number) => (
-              <CertificationCard edit={edit[4]} key={index} {...item} />
-            ))}
-            {addCertificate && <CertiInput setEdit={setAddCertificate} />}
-          </div>
-        </div>
+        <Certification/>
       </div>
     </>
   );

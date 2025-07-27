@@ -1,8 +1,33 @@
 import { ActionIcon } from "@mantine/core";
 import { Trash } from "lucide-react";
 import { formatDate } from "../../Services/Utilities";
+import { useDispatch, useSelector } from "react-redux";
+import { changeProfile } from "../../Slices/ProfileSlice";
+import { toast } from "react-toastify";
+import { useState } from "react";
 
 const CertificationCard = (props: any) => {
+  const dispatch = useDispatch();
+  const [edit, setEdit] = useState(false);
+  const profile = useSelector((state: any) => state.profile);
+  const handleDelete = () => {
+    const exp = [...profile.certifications];
+    exp.splice(props.index, 1);
+    const updatedProfile = { ...profile, certifications: exp };
+    props.setEdit(edit);
+    dispatch(changeProfile(updatedProfile));
+    toast.error(
+      <div>
+        <div className="font-semibold text-black text-base">Success</div>
+        <div className="text-sm text-gray-800">Deleted Successfully</div>
+      </div>,
+      {
+        position: "top-center",
+        autoClose: 2000,
+        theme: "light",
+      }
+    );
+  };
   return (
     <>
       <div className="flex justify-between mb-2">
@@ -24,6 +49,7 @@ const CertificationCard = (props: any) => {
             <ActionIcon variant="transparent" color="red.8" size="lg">
               <Trash
                 strokeWidth={2.5}
+                onClick={handleDelete}
                 style={{ width: "70%", height: "70%" }}
               />
             </ActionIcon>

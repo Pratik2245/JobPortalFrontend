@@ -42,7 +42,13 @@ const Experience = () => {
       </div>
       <div className="flex flex-col gap-4">
         {UserProfile?.experiences?.map((exp: any, index: number) => (
-          <ExpCard key={index} index={index} {...exp} edit={edit} />
+          <ExpCard
+            key={index}
+            index={index}
+            setEdit={setExp}
+            {...exp}
+            edit={edit}
+          />
         ))}
       </div>
       {exp && <ExpInput add setEdit={setExp} />}

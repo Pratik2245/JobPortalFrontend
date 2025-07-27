@@ -2,10 +2,32 @@ import { Button } from "@mantine/core";
 import { useState } from "react";
 import ExpInput from "./ExpInput";
 import { formatDate } from "../../Services/Utilities";
+import { useDispatch, useSelector } from "react-redux";
+import { changeProfile } from "../../Slices/ProfileSlice";
+import { toast } from "react-toastify";
 
 const ExpCard = (props: any) => {
+  const dispatch = useDispatch();
   const [edit, setEdit] = useState(false);
-
+  const profile = useSelector((state: any) => state.profile);
+  const handleDelete = () => {
+    const exp = [...profile.experiences];
+    exp.splice(props.index, 1);
+    const updatedProfile = { ...profile, experiences: exp };
+    props.setEdit(edit);
+    dispatch(changeProfile(updatedProfile));
+    toast.error(
+      <div>
+        <div className="font-semibold text-black text-base">Success</div>
+        <div className="text-sm text-gray-800">Deleted Successfully</div>
+      </div>,
+      {
+        position: "top-center",
+        autoClose: 2000,
+        theme: "light",
+      }
+    );
+  };
   return !edit ? (
     <div className="flex flex-col gap-3">
       <div className="flex justify-between mb-2">
@@ -35,7 +57,7 @@ const ExpCard = (props: any) => {
           >
             Edit
           </Button>
-          <Button color="red.5" variant="light">
+          <Button color="red.5" onClick={handleDelete} variant="light">
             Delete
           </Button>
         </div>
