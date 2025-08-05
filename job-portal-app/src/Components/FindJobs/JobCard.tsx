@@ -1,12 +1,13 @@
 import { Button, Divider, Text } from "@mantine/core";
 import { Bookmark, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
+import { timeAgo } from "../../Services/Utilities";
 
 const JobCard = (props: any) => {
   return (
     <Link
-      to="/job-details"
-      className="flex flex-col gap-2 rounded-2xl bg-[#3d3d3d] p-4 w-72 hover:shadow-[0_0_5px_1px_yellow] !shadow-[#ffd149"
+      to={`/job-details/${props.id}`}
+      className="flex flex-col gap-2 rounded-2xl bg-[#3d3d3d] p-4 w-74 hover:shadow-[0_0_5px_1px_yellow] !shadow-[#ffd149"
     >
       <div className="flex justify-between mb-2">
         <div className="flex gap-2 items-center ">
@@ -16,7 +17,8 @@ const JobCard = (props: any) => {
           <div className="">
             <div className="font-semibold">{props.jobTitle}</div>
             <div className="text-xs text-[#b0b0b0]">
-              {props.company} &#x2022; {props.applicants} Applicants
+              {props.company} &#x2022;
+              {props.applicants ? props.applicants.length : 0} Applicants
             </div>
           </div>
         </div>
@@ -31,15 +33,15 @@ const JobCard = (props: any) => {
         className="!text-xs !text-[#b0b0b0] !mb-3 text-justify "
         lineClamp={3}
       >
-        {props.description}
+        {props.about}
       </Text>
       <Divider size="xs" color="#4f4f4f" />
       <div className="flex justify-between mb-2">
         <div className="text-[#d1d1d1] font-semibold">
-          &#8377;{props.package}
+          &#8377;{props.packageOffered} LPA
         </div>
         <div className="flex text-sm gap-1 items-center text-[#888888]">
-          <Clock size={15} /> Posted {props.postedDaysAgo} Month Ago
+          <Clock size={15} /> Posted {timeAgo(props.postTime)}
         </div>
       </div>
       <Button variant="light" radius="sm" color="#ffbd20">

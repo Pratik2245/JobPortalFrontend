@@ -1,26 +1,44 @@
-import { ActionIcon, Button, Divider, PaginationItems } from "@mantine/core";
-import { AlignVerticalJustifyCenter, Bookmark, MapPin } from "lucide-react";
+import { ActionIcon, Button, Divider } from "@mantine/core";
+import {
+  Bookmark,
+  BriefcaseBusiness,
+  CircleDollarSign,
+  MapPin,
+  Star,
+} from "lucide-react";
 import { Link } from "react-router-dom";
-import { card, desc, skills } from "../../Data/JobDescData";
 import DOMPurify from "dompurify";
+import { timeAgo } from "../../Services/Utilities";
 const JobDesc = (props: any) => {
-  const data = DOMPurify.sanitize(desc);
+  const data = DOMPurify.sanitize(props.description);
+  const card = [
+    { name: "Location", icon: MapPin, value: props.location },
+    { name: "Experience", icon: BriefcaseBusiness, value: props.experience },
+    {
+      name: "Salary",
+      icon: CircleDollarSign,
+      value: props.packageOffered + "LPA",
+    },
+    { name: "Job Type", icon: Star, value: props.jobType },
+  ];
   return (
     <div className="w-2/3">
       <div className="flex justify-between mb-2">
         <div className="flex gap-2 items-center ">
           <div className="bg-[#454545] p-2 rounded-xl">
-            <img className="h-14" src={`/Icons/Google.png`} alt="" />
+            <img className="h-14" src={`/Icons/${props.company}.png`} alt="" />
           </div>
           <div className="">
-            <div className="font-semibold text-2xl">Software Engineer</div>
+            <div className="font-semibold text-2xl">{props.jobTitle}</div>
             <div className="text-lg text-[#b0b0b0]">
-              Google &#x2022;3 Days Ago 48 Applicants
+              {props.company} &#x2022;{timeAgo(props.postTime)}{" "}
+              {props.applicants ? length : 0}
+              Applicants
             </div>
           </div>
         </div>
         <div className="flex flex-col gap-2 items-center">
-          <Link to="/apply-job">
+          <Link to={`/apply-job/${props.id}`}>
             <Button color="#ffbd20" variant="light">
               {props.edit ? "Edit" : "Apply"}
             </Button>
@@ -55,7 +73,7 @@ const JobDesc = (props: any) => {
       <Divider my="xl" />
       <div className="">Required Skills</div>
       <div className="flex gap-2 flex-wrap">
-        {skills.map((item, index) => (
+        {props.skillsRequired?.map((item: any, index: number) => (
           <ActionIcon
             variant="light"
             color="#ffbd20"
@@ -79,28 +97,20 @@ const JobDesc = (props: any) => {
       <div className="flex mb-2 justify-between ">
         <div className="flex gap-2 items-center ">
           <div className="bg-[#454545] p-2 rounded-xl">
-            <img className="h-8" src={`/Icons/Google.png`} alt="" />
+            <img className="h-8" src={`/Icons/${props.company}.png`} alt="" />
           </div>
           <div className="">
-            <div className="font-medium text-lg">Google</div>
+            <div className="font-medium text-lg">{props.company}</div>
             <div className=" text-[#b0b0b0]">10k+ Employees</div>
           </div>
         </div>
-        <Link to="/company">
+        <Link to={`/company/${props.company}`}>
           <Button color="#ffbd20" variant="light" size="sm">
             Company Page
           </Button>
         </Link>
       </div>
-      <div className="text-[#b0b0b0] text-justify">
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem
-        placeat nostrum neque laborum ratione culpa tempore sequi amet qui
-        consequatur dolores, saepe aliquid cupiditate, odio voluptates impedit
-        nihil temporibus porro mollitia! Ipsum, aliquid nesciunt. Lorem ipsum
-        dolor sit amet, consectetur adipisicing elit. Alias impedit voluptates,
-        ratione officiis numquam soluta, commodi enim reiciendis a vero, dolore
-        suscipit temporibus.
-      </div>
+      <div className="text-[#b0b0b0] text-justify">{props.about}</div>
     </div>
   );
 };

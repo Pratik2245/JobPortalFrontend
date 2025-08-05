@@ -26,4 +26,33 @@ const postJob = async (userData: any) => {
     throw error;
   }
 };
-export { postJob };
+const getAllJobs = async () => {
+  try {
+    const res = await axios.get(`${baseUrl}/getAllJobs`);
+    console.log(res);
+
+    return res;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+const getJobById = async (id: any) => {
+  try {
+    const res = await axios.get(`${baseUrl}/getAllJobs/${id}`);
+    return res;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+const applyJob = async (application: any, id: any) => {
+  try {
+    const res = await axios.post(`${baseUrl}/apply/${id}`, application);
+    return res;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+export { postJob, getAllJobs, getJobById, applyJob };

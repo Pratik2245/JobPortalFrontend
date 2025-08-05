@@ -1,4 +1,4 @@
-import { createTheme, Divider, MantineProvider } from "@mantine/core";
+import { createTheme, MantineProvider } from "@mantine/core";
 import "@mantine/dates/styles.css";
 import "@mantine/core/styles.css";
 import "@mantine/carousel/styles.css";

@@ -1,8 +1,20 @@
-import { jobList } from "../../Data/JobsData";
+import { useEffect, useState } from "react";
 import JobCard from "./JobCard";
 import MostRecent from "./MostRecent";
+import { getAllJobs } from "../../Services/PostJobService";
 
 const Jobs = () => {
+  // now we are creating the job list manually
+  const [jobList, setJobList] = useState([{}]);
+  console.log(jobList);
+
+  useEffect(() => {
+    getAllJobs()
+      .then((res) => setJobList(res.data))
+      .catch((err) => console.log(err));
+    console.log(jobList);
+  }, []);
+
   return (
     <>
       <div className="p-5">
@@ -14,7 +26,7 @@ const Jobs = () => {
         </div>
         <div className=" mt-10 flex flex-wrap gap-5 justify-around">
           {jobList.map((job, key) => (
-            <JobCard kwy={key} {...job} />
+            <JobCard key={key} {...job} />
           ))}
         </div>
       </div>
