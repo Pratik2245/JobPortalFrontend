@@ -62,7 +62,7 @@ const ApplyJobFrom = () => {
         setSubmit(false);
         navigate("/job-history");
         toast.success("✅ Application submitted successfully!", {
-          position: "top-right",
+          position: "top-center",
           autoClose: 3000, // 3 seconds
           hideProgressBar: false,
           closeOnClick: true,
@@ -74,7 +74,7 @@ const ApplyJobFrom = () => {
       .catch((err) => {
         setSubmit(false);
         toast.error(err.response.data.errorMessage, {
-          position: "top-right",
+          position: "top-center",
           autoClose: 3000, // 3 seconds
           hideProgressBar: false,
           closeOnClick: true,

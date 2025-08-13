@@ -10,6 +10,7 @@ const About = () => {
   const dispatch = useDispatch();
   const profile = useSelector((state: any) => state.profile);
   const [about, setAbout] = useState("");
+
   const handleSave = () => {
     setEdit(false);
     const updatedProfile = { ...profile, about: about };

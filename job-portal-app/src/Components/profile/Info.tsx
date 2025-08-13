@@ -21,6 +21,8 @@ const Info = () => {
   const dispatch = useDispatch();
   const select = fields;
   const handleEdit = () => {
+    console.log(profile);
+    
     if (!edit) {
       setEdit(true);
       form.setValues({

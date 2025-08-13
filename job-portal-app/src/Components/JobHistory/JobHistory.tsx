@@ -1,45 +1,81 @@
 import { Tabs } from "@mantine/core";
-import { jobList } from "../../Data/JobsData";
 import Card from "./Card";
+import { useEffect, useState } from "react";
+import { getAllJobs } from "../../Services/PostJobService";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserData } from "../../Services/ProfileServices";
+import { setProfile } from "../../Slices/ProfileSlice";
 
 const JobHistory = () => {
+  const profile = useSelector((state: any) => state.profile);
+  const dispatch = useDispatch();
+  const user = useSelector((state: any) => state.user);
+  const [activeTab, setActiveTab] = useState("APPLIED");
+  const [jobListData, setJobListData] = useState<any>([]);
+  const [showList, setShowList] = useState<any>([]);
+  useEffect(() => {
+    if (!profile?.id && user?.id) {
+      getUserData(user.id)
+        .then((data: any) => {
+          dispatch(setProfile(data));
+        })
+        .catch((err) => console.error(err));
+    }
+  }, [profile?.id, user?.id, dispatch]);
+  useEffect(() => {
+    getAllJobs()
+      .then((res) => {
+        setJobListData(res.data);
+
+        setShowList(
+          res.data.filter(
+            (job: any) =>
+              job.applicants?.filter(
+                (applicant: any) =>
+                  applicant.applicantId === user.id &&
+                  applicant.applicationStatus == "APPLIED"
+              ).length > 0
+          )
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+  const handleTabChange = (value: string | any) => {
+    setActiveTab(value);
+    if (value == "SAVED") {
+      setShowList(
+        jobListData.filter((job: any) => profile.savedJobs?.includes(job.id))
+      );
+    } else {
+      setShowList(
+        jobListData.filter(
+          (job: any) =>
+            job.applicants?.filter(
+              (applicant: any) =>
+                applicant.applicantId == user.id &&
+                applicant.applicationStatus == value
+            ).length > 0
+        )
+      );
+    }
+  };
   return (
     <div>
       <div className="text-2xl font-semibold mb-5 ">Job History</div>
-      <Tabs variant="outline" defaultValue="applied">
+      <Tabs variant="outline" value={activeTab} onChange={handleTabChange}>
         <Tabs.List className="[&_button]:!text-lg font-semibold mb-5 [&_button[data-active='true']]:!text-[#ffbd20]">
-          <Tabs.Tab value="applied">Applied</Tabs.Tab>
-          <Tabs.Tab value="saved">Saved</Tabs.Tab>
-          <Tabs.Tab value="offered">Offered</Tabs.Tab>
-          <Tabs.Tab value="interviewing">Interviewing</Tabs.Tab>
+          <Tabs.Tab value="APPLIED">Applied</Tabs.Tab>
+          <Tabs.Tab value="SAVED">Saved</Tabs.Tab>
+          <Tabs.Tab value="OFFERED">Offered</Tabs.Tab>
+          <Tabs.Tab value="INTERVIEWING">Interviewing</Tabs.Tab>
         </Tabs.List>
 
-        <Tabs.Panel value="applied">
+        <Tabs.Panel value={activeTab}>
           <div className=" mt-10 flex flex-wrap gap-5 justify-around">
-            {jobList.map((job, key) => (
-              <Card applied key={key} {...job} />
-            ))}
-          </div>
-        </Tabs.Panel>
-        <Tabs.Panel value="saved">
-          <div className=" mt-10 flex flex-wrap gap-5 justify-around">
-            {jobList.map((job, key) => (
-              <Card saved key={key} {...job} />
-            ))}
-          </div>
-        </Tabs.Panel>
-
-        <Tabs.Panel value="offered">
-          <div className=" mt-10 flex flex-wrap gap-5 justify-around">
-            {jobList.map((job, key) => (
-              <Card offered key={key} {...job} />
-            ))}
-          </div>
-        </Tabs.Panel>
-        <Tabs.Panel value="interviewing">
-          <div className=" mt-10 flex flex-wrap gap-5 justify-around">
-            {jobList.map((job, key) => (
-              <Card interviewing key={key} {...job} />
+            {showList?.map((job: any, key: any) => (
+              <Card applied key={key} {...job} activeTab={activeTab} />
             ))}
           </div>
         </Tabs.Panel>

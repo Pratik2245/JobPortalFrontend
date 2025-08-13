@@ -3,7 +3,7 @@ const baseUrl = "http://localhost:8081/profile/";
 const getUserData = async (id: number) => {
   try {
     const res = await axios.get(`${baseUrl}get/${id}`);
-    console.log("Fetched user data:", res.data);
+    // console.log("Fetched user data:", res.data);
     return res.data;
   } catch (err) {
     console.error("Failed to fetch user data:", err);
@@ -15,6 +15,6 @@ const updateProfile = async (profile: any) => {
   return await axios
     .post(`${baseUrl}update`, profile)
     .then((res) => console.log(res.data))
-    .catch((err) => console.log(err));
+    .catch((err) => console.log(err.message));
 };
 export { getUserData, updateProfile };

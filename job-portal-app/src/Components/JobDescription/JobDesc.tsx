@@ -5,12 +5,36 @@ import {
   CircleDollarSign,
   MapPin,
   Star,
+  User,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import DOMPurify from "dompurify";
 import { timeAgo } from "../../Services/Utilities";
+import { useDispatch, useSelector } from "react-redux";
+import { FaBookmark } from "react-icons/fa";
+import { changeProfile } from "../../Slices/ProfileSlice";
+import { useEffect, useState } from "react";
 const JobDesc = (props: any) => {
+  const user=useSelector((state:any)=>state.user);
+  const dispatch=useDispatch();
+  const [applied,setApplied]=useState(false);
+  const profile=useSelector((state:any)=>state.profile);
   const data = DOMPurify.sanitize(props.description);
+  const handleSaveJobs = () => {
+      if (!profile?.id) {
+        console.warn("Profile not loaded yet, cannot save job.");
+        return;
+      }
+  
+      let savedJobs: any = [...(profile.savedJobs || [])];
+      if (savedJobs.includes(props.id)) {
+        savedJobs = savedJobs.filter((id: any) => id !== props.id);
+      } else {
+        savedJobs = [...savedJobs, props.id];
+      }
+      const updatedProfile = { ...profile, savedJobs: savedJobs };
+      dispatch(changeProfile(updatedProfile));
+    };
   const card = [
     { name: "Location", icon: MapPin, value: props.location },
     { name: "Experience", icon: BriefcaseBusiness, value: props.experience },
@@ -21,6 +45,17 @@ const JobDesc = (props: any) => {
     },
     { name: "Job Type", icon: Star, value: props.jobType },
   ];
+
+  useEffect(() => {
+    
+    if(props.applicants?.filter((applicant:any)=>applicant.applicantId==user.id).length>0){
+      setApplied(true);
+    }else{
+      setApplied(false)
+    }
+    
+  }, [props])
+  
   return (
     <div className="w-2/3">
       <div className="flex justify-between mb-2">
@@ -38,17 +73,22 @@ const JobDesc = (props: any) => {
           </div>
         </div>
         <div className="flex flex-col gap-2 items-center">
-          <Link to={`/apply-job/${props.id}`}>
+          {(props.edit || !applied )&&<Link to={`/apply-job/${props.id}`}>
             <Button color="#ffbd20" variant="light">
               {props.edit ? "Edit" : "Apply"}
             </Button>
-          </Link>
+          </Link>}
+          {applied &&<Button color="green.8" variant="light">
+              Applied
+            </Button>}
           {props.edit ? (
             <Button color="red.5" variant="outline">
               Delete
             </Button>
           ) : (
-            <Bookmark color="#ffbd20" className="cursor-pointer" />
+            profile.savedJobs?.includes(props.id)?<FaBookmark onClick={handleSaveJobs}
+                        size={20} color="#ffbd20" className="cursor-pointer"/>:
+            <Bookmark onClick={handleSaveJobs} color="#ffbd20" className="cursor-pointer" />
           )}
         </div>
       </div>

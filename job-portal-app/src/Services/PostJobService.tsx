@@ -29,7 +29,7 @@ const postJob = async (userData: any) => {
 const getAllJobs = async () => {
   try {
     const res = await axios.get(`${baseUrl}/getAllJobs`);
-    console.log(res);
+    // console.log(res);
 
     return res;
   } catch (error) {

@@ -6,13 +6,11 @@ import { getAllJobs } from "../../Services/PostJobService";
 const Jobs = () => {
   // now we are creating the job list manually
   const [jobList, setJobList] = useState([{}]);
-  console.log(jobList);
 
   useEffect(() => {
     getAllJobs()
       .then((res) => setJobList(res.data))
       .catch((err) => console.log(err));
-    console.log(jobList);
   }, []);
 
   return (

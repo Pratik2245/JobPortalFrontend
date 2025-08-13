@@ -12,7 +12,7 @@ const RecommendedJobs = () => {
     getAllJobs()
       .then((res) => setJobList(res.data))
       .catch((err) => console.log(err));
-    console.log(jobList);
+    // console.log(jobList);
   }, []);
   return (
     <div className=" flex flex-col   w-1/3 font-semibold mb-5">

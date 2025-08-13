@@ -27,7 +27,6 @@ const Profile = () => {
   const dispatch = useDispatch();
   // first get the user and then give it to the useEffect
   const user = useSelector((state: any) => state.user);
-  const UserProfile = useSelector((state: any) => state.profile);
   useEffect(() => {
     getUserData(user.id)
       .then((data: any) => {
@@ -35,14 +34,7 @@ const Profile = () => {
       })
       .catch((err) => console.log(err));
   }, []);
-  const [edit, setEdit] = useState([false, false, false, false, false]);
-  const handleEdit = (index: any) => {
-    const newEdit = { ...edit };
-    newEdit[index] = !newEdit[index];
-    setEdit(newEdit);
-  };
 
-  
   return (
     <>
       <div className="w-4/5 mt-5 mx-auto">
@@ -85,7 +77,7 @@ const Profile = () => {
         <Divider />
         <Experience />
         <Divider />
-        <Certification/>
+        <Certification />
       </div>
     </>
   );

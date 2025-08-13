@@ -14,7 +14,7 @@ const JobDetails = () => {
       .then((res) => setResData(res.data))
       .catch((err) => console.log(err));
   }, [id]);
-  console.log("resData=", resData);
+  
   return (
     <div className="min-h-[100vh] bg-[#2d2d2d] font-['poppins'] p-4">
       <Link to="/find-jobs" className="my-4 inline-block">

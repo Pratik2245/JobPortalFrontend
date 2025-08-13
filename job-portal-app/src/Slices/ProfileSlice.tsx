@@ -10,7 +10,7 @@ const ProfileSlice = createSlice({
       return action.payload;
     },
     setProfile: (state, action) => {
-      console.log(action.payload);
+      // console.log(action.payload);
 
       return action.payload;
     },
