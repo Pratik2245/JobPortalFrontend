@@ -38,7 +38,7 @@ const AppRoutes = () => {
             path="/login"
             element={!user ? <SignUpPage /> : <Navigate to="/" />}
           />
-          <Route path="/posted-jobs" element={<PostedJobPage />} />
+          <Route path="/posted-jobs/:id" element={<PostedJobPage />} />
           <Route path="/company/:name" element={<CompanyPage />} />
           <Route path="/apply-job/:id" element={<ApplyJobPage />} />
           <Route path="/post-jobs" element={<PostJobsPage />} />

@@ -6,8 +6,10 @@ import { isNotEmpty, useForm } from "@mantine/form";
 import { toast } from "react-toastify";
 import { postJob } from "../../Services/PostJobService";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const PostJob = () => {
+  const user = useSelector((state: any) => state.user);
   const navigate = useNavigate();
   const form = useForm({
     mode: "controlled",
@@ -41,7 +43,11 @@ const PostJob = () => {
       return;
     }
     console.log(form.getValues());
-    const res = await postJob(form.getValues());
+    const res = await postJob({
+      ...form.getValues(),
+      postedBy: user.id,
+      jobStatus: "ACTIVE",
+    });
     if (res.status === 200 || res.status === 201) {
       toast.success(
         <div>
@@ -55,10 +61,37 @@ const PostJob = () => {
         }
       );
       setTimeout(() => {
-        navigate("/posted-jobs");
+        navigate(`/posted-jobs/${res.data.id}`);
       }, 3000);
     }
   };
+  const handleDraftJobs = async () => {
+    await postJob({
+      ...form.getValues(),
+      postedBy: user.id,
+      jobStatus: "DRAFT",
+    })
+      .then((res) => {
+        toast.success(
+          <div>
+            <div className="font-semibold text-black text-base">Success</div>
+            <div className="text-sm text-gray-800">
+              Job Drafted Successfully
+            </div>
+          </div>,
+          {
+            position: "top-center",
+            autoClose: 3000,
+            theme: "light",
+          }
+        );
+        setTimeout(() => {
+          navigate(`/posted-jobs/${res.data.id}`);
+        }, 3000);
+      })
+      .catch((err) => console.log(err));
+  };
+
   const select = fields;
   return (
     <div className="w-4/5 m-auto">
@@ -111,7 +144,7 @@ const PostJob = () => {
           <Button onClick={handlePostJobs} color="#ffbd20" variant="light">
             Publish a Job
           </Button>
-          <Button color="#ffbd20" variant="outline">
+          <Button onClick={handleDraftJobs} color="#ffbd20" variant="outline">
             Save As Draft
           </Button>
         </div>
