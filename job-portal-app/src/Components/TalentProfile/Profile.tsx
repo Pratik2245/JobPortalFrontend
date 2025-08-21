@@ -52,9 +52,9 @@ const Profile = (props: any) => {
         <div className="mt-7 ">
           <div className="font-semibold text-xl mb-3">Experience</div>
           <div className="flex flex-col gap-4">
-            {props.experience.map((exp: any, index: any) => (
+            {/* {props.experience.map((exp: any, index: any) => (
               <ExpCard key={index} {...exp} />
-            ))}
+            ))} */}
           </div>
         </div>
         <Divider />

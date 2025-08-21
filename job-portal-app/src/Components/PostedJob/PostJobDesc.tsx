@@ -40,7 +40,25 @@ const PostJobDesc = (props: any) => {
               {props.applicants
                 ?.filter((x: any) => x.applicationStatus === "INTERVIEWING")
                 .map((talent: any, index: any) => (
-                  <TalentCard schedule key={index} {...talent} />
+                  <TalentCard invited key={index} {...talent} />
+                ))}
+            </div>
+          </Tabs.Panel>
+          <Tabs.Panel value="offered">
+            <div className=" mt-10 flex flex-wrap  gap-5 ">
+              {props.applicants
+                ?.filter((x: any) => x.applicationStatus === "OFFERED")
+                .map((talent: any, index: any) => (
+                  <TalentCard offered key={index} {...talent} />
+                ))}
+            </div>
+          </Tabs.Panel>
+          <Tabs.Panel value="rejected">
+            <div className=" mt-10 flex flex-wrap  gap-5 ">
+              {props.applicants
+                ?.filter((x: any) => x.applicationStatus === "REJECT")
+                .map((talent: any, index: any) => (
+                  <TalentCard rejected key={index} {...talent} />
                 ))}
             </div>
           </Tabs.Panel>

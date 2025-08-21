@@ -1,6 +1,6 @@
 import axios from "axios";
 const baseUrl = "http://localhost:8081/profile/";
-const getUserData = async (id: number) => {
+const getUserData = async (id: any) => {
   try {
     const res = await axios.get(`${baseUrl}get/${id}`);
     // console.log("Fetched user data:", res.data);

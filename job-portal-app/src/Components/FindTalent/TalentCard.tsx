@@ -7,11 +7,25 @@ import { useEffect, useRef, useState } from "react";
 import { getUserData } from "../../Services/ProfileServices";
 import { changeAppStatus } from "../../Services/PostJobService";
 import { toast } from "react-toastify";
+import { openResume } from "../../Services/Utilities";
+import { useDispatch, useSelector } from "react-redux";
+import { setProfile } from "../../Slices/ProfileSlice";
 
 const TalentCard = (props: any) => {
   const { id } = useParams();
+  const profile=useSelector((state:any)=>state.profile);
+  const user=useSelector((state:any)=>state.user);
+  const dispatch=useDispatch();
   const [applicantData, setApplicantData] = useState<any>({});
-
+useEffect(() => {
+    if (!profile?.id && user?.id) {
+      getUserData(user.id)
+        .then((data: any) => {
+          dispatch(setProfile(data));
+        })
+        .catch((err) => console.error(err));
+    }
+  }, [profile?.id, user?.id, dispatch]);
   useEffect(() => {
     if (props.applicantId) {
       getUserData(props.applicantId)
@@ -35,39 +49,42 @@ const TalentCard = (props: any) => {
   const [date, setDate] = useState<string | null>(null);
   const [time, setTime] = useState<any>("");
   const [opened, { open, close }] = useDisclosure(false);
+  const [app, { open: openApp, close: closeApp }] = useDisclosure(false);
   const handleOffer = (status: any) => {
-    if (!date || !time) return;
-
-    // Convert date string from DateInput to JS Date
-    const selectedDate = new Date(date);
-
-    // Extract hours and minutes from your time input (expects "HH:MM")
-    const [hours, minutes] = time.split(":").map(Number);
-
-    // Set hours and minutes on the selectedDate
-    selectedDate.setHours(hours);
-    selectedDate.setMinutes(minutes);
-    selectedDate.setSeconds(0);
-
-    // Format as LocalDateTime string (no timezone shift)
-    const interViewTime = `${selectedDate.getFullYear()}-${String(
-      selectedDate.getMonth() + 1
-    ).padStart(2, "0")}-${String(selectedDate.getDate()).padStart(
-      2,
-      "0"
-    )}T${String(selectedDate.getHours()).padStart(2, "0")}:${String(
-      selectedDate.getMinutes()
-    ).padStart(2, "0")}:00`;
-    console.log(interViewTime);
-    const payload = {
+    let interviewData:any= {
       id,
-      applicantId: props.applicantId,
-      interViewTime, // e.g., "2025-08-20T13:04:00"
+      applicantId: props.applicantId, 
       applicationStatus: status,
     };
-    changeAppStatus(payload)
+    // check status 
+    if(status=="INTERVIEWING"){
+      if (!date || !time) return;
+
+      const selectedDate = new Date(date);
+
+      const [hours, minutes] = time.split(":").map(Number);
+
+      selectedDate.setHours(hours);
+      selectedDate.setMinutes(minutes);
+      selectedDate.setSeconds(0);
+
+      const interviewTime = `${selectedDate.getFullYear()}-${String(
+      selectedDate.getMonth() + 1
+      ).padStart(2, "0")}-${String(selectedDate.getDate()).padStart(
+        2,
+        "0"
+      )}T${String(selectedDate.getHours()).padStart(2, "0")}:${String(
+      selectedDate.getMinutes()
+    ).padStart(2, "0")}:00`;
+
+    interviewData={...interviewData,interviewTime};
+  }
+    
+   
+    changeAppStatus(interviewData)
       .then((res) => {
-        toast.success(`✅ Interview scheduled for ${interViewTime}`, {
+        if(status=="INTERVIEWING"){
+        toast.success(`✅ Interview scheduled for ${interviewData}`, {
           position: "top-right",
           autoClose: 5000, // 5s
           hideProgressBar: false,
@@ -77,8 +94,32 @@ const TalentCard = (props: any) => {
           progress: undefined,
           theme: "colored",
         });
+      }else if(status=="OFFERED"){
+         toast.success(`✅ Offer sent Successfully`, {
+          position: "top-right",
+          autoClose: 5000, // 5s
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      }else {
+        toast.success(`❌ Application has been Rejected`, {
+          position: "top-right",
+          autoClose: 5000, // 5s
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      }
         window.location.reload();
       })
+      
       .catch((err) => {
         toast.error(
           `❌ ${err.message || "Something went wrong while scheduling!"}`,
@@ -141,7 +182,7 @@ const TalentCard = (props: any) => {
       </Text>
       <Divider size="xs" color="#4f4f4f" />
 
-      {props.interviewTime ? (
+      {props.invited ? (
         <div className="flex  gap-1 items-center  text-[#d1d1d1] text-sm ">
           <CalendarDays className="w-5 h-5" /> Interview :{" "}
           {formatBackendDate(props.interviewTime)}
@@ -156,15 +197,15 @@ const TalentCard = (props: any) => {
       )}
       <Divider size="xs" color="#4f4f4f" className="mb-1" />
       <div className=" flex [&>*]:w-1/2 [&>*]:p-1 gap-2">
-        {!applicantData.invited && (
+        {!props.invited && (
           <>
-            <Link to="/talent-profile">
+            <Link to={`/talent-profile/${profile.id}`}>
               <Button color="#ffbd20" variant="outline" fullWidth>
                 Profile
               </Button>
             </Link>
             <div className="">
-              {!props.interviewTime ? (
+              {props.schedule ? (
                 <Button
                   rightSection={<CalendarDays className="w-5 h-5" />}
                   color="#ffbd20"
@@ -185,18 +226,23 @@ const TalentCard = (props: any) => {
         {props.invited && (
           <>
             <div className="">
-              <Button color="#ffbd20" variant="outline" fullWidth>
+              <Button color="#ffbd20" onClick={()=>handleOffer("OFFERED")} variant="outline" fullWidth>
                 Accept
               </Button>
             </div>
             <div className="">
-              <Button color="#ffbd20" variant="light" fullWidth>
+              <Button color="#ffbd20" onClick={()=>handleOffer("REJECT")} variant="light" fullWidth>
                 Reject
               </Button>
             </div>
           </>
         )}
       </div>
+      {(props.invited || props.posted) && (
+        <Button color="#ffbd20" onClick={openApp} autoContrast variant="filled" fullWidth>
+          View Application
+        </Button>
+      )}
       <Modal
         opened={opened}
         onClose={close}
@@ -226,6 +272,31 @@ const TalentCard = (props: any) => {
           >
             Schedule
           </Button>
+        </div>
+      </Modal>
+      <Modal
+        opened={app}
+        radius="lg"
+        onClose={closeApp}
+        title="Application"
+        centered
+      >
+        <div className="flex flex-col gap-3">
+          <div className="">
+            Email &emsp; <a href={`mailto:${props.email}`} className="text-[#ffbd20] hover:underline text-center cursor-pointer">{props.email}</a>
+          </div>
+          <div className="">
+            Website &emsp; <a target="_blank" href={props.website} className="text-[#ffbd20] hover:underline text-center cursor-pointer">
+              {props.website}
+            </a>
+          </div>
+          <div className="">
+          Resume &emsp; <span onClick={()=>{            
+            openResume(props.resume)}}  className="text-[#ffbd20] hover:underline text-center cursor-pointer">{props.name}</span>
+          </div>
+          <div className="">
+            CoverLetter:  &emsp; <div className="">{props.coverLetter}</div>
+          </div>
         </div>
       </Modal>
     </div>
