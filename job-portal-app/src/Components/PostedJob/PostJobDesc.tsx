@@ -24,7 +24,7 @@ const PostJobDesc = (props: any) => {
           </Tabs.List>
 
           <Tabs.Panel value="overview" className="[&>div]:w-full">
-            <JobDesc {...props} edit />
+           {props.jobStatus=="CLOSED"?<JobDesc {...props} close edit />:<JobDesc {...props} edit />} 
           </Tabs.Panel>
           <Tabs.Panel value="applicants">
             <div className=" mt-10 flex flex-wrap  gap-5 ">

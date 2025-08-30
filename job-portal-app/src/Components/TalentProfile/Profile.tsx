@@ -1,11 +1,26 @@
 import { Button, Divider } from "@mantine/core";
 import { Briefcase, BriefcaseBusiness, MapPin } from "lucide-react";
-import ExpCard from "../FindTalent/ExpCard";
+
 import CertificationCard from "../FindTalent/CertificationCard";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getUserData } from "../../Services/ProfileServices";
+import ExpCard from "../FindTalent/ExpCard";
 
 const Profile = (props: any) => {
-  console.log(props.skills);
+  const {id}=useParams();
+  const[profile,setProfile]=useState<any>({});
+  useEffect(() => {
+    window.scrollTo(0,0);
+    getUserData(id)
+        .then((res:any) => {
+          setProfile(res);
+        })
+        .catch((err) => console.log(err));
+  }, [id]);
+  
 
+  
   return (
     <>
       <div className="w-2/3">
@@ -18,15 +33,15 @@ const Profile = (props: any) => {
           />
         </div>
         <div className="flex mt-16 justify-between items-center">
-          <div className="text-2xl font-semibold">{props.name}</div>
+          <div className="text-2xl font-semibold">{profile.name}</div>
           <Button variant="light">Message</Button>
         </div>
         <div className="[&>div]:flex [&>div]:gap-2 [&>div]:mb-1 mb-7">
           <div className="">
-            <BriefcaseBusiness /> {props.role} &bull; {props.company}
+            <BriefcaseBusiness /> {profile.jobTitle} &bull; {profile.company}
           </div>
           <div className="">
-            <MapPin /> {props.location}
+            <MapPin /> {profile.location}
           </div>
           <div className="">
             <Briefcase /> Experience: 2 Years
@@ -35,13 +50,13 @@ const Profile = (props: any) => {
         <Divider />
         <div className="mt-7 mb-7">
           <div className="text-xl font-semibold mb-2">About</div>
-          <div className="">{props.about}</div>
+          <div className="">{profile.about}</div>
         </div>
         <Divider />
         <div className="mt-7 mb-7">
           <div className="text-xl font-semibold mb-4">Skills</div>
           <div className="flex flex-wrap  gap-3 ">
-            {props.skills?.map((skill: any, index: any) => (
+            {profile.skills?.map((skill: any, index: any) => (
               <Button key={index} variant="light" radius="xl" color="#ffbd20">
                 {skill}
               </Button>
@@ -52,16 +67,16 @@ const Profile = (props: any) => {
         <div className="mt-7 ">
           <div className="font-semibold text-xl mb-3">Experience</div>
           <div className="flex flex-col gap-4">
-            {/* {props.experience.map((exp: any, index: any) => (
+            {profile?.experiences?.map((exp: any, index: any) => (
               <ExpCard key={index} {...exp} />
-            ))} */}
+            ))}
           </div>
         </div>
         <Divider />
         <div className="mt-7">
           <div className="font-semibold text-xl mb-3">Certifications</div>
           <div className="flex flex-col gap-4">
-            {props.certifications.map((item: any, index: any) => (
+            {profile?.certifications?.map((item: any, index: any) => (
               <CertificationCard key={index} {...item} />
             ))}
           </div>

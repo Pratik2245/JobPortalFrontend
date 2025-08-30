@@ -1,6 +1,6 @@
-import { Bookmark } from "lucide-react";
+import { formatDate } from "../../Services/Utilities";
 
-const ExpCard = (props: any) => {
+const ExpCard = (props: any) => {  
   return (
     <>
       <div className="flex justify-between mb-2">
@@ -11,12 +11,12 @@ const ExpCard = (props: any) => {
           <div className="">
             <div className="font-semibold">{props.title}</div>
             <div className="text-xs text-[#b0b0b0]">
-              Apple &#183;{props.location}
+              {props.company} &#183;{props.location}
             </div>
           </div>
         </div>
         <div className="text-sm">
-          {props.startDate} &#45;{props.endDate}
+          {formatDate(props.startDate)} &#45;{formatDate(props.endDate)}
         </div>
       </div>
       <div className="mb-7 text-sm text-justify">{props.description}</div>

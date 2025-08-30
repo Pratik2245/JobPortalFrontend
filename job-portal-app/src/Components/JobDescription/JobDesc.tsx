@@ -14,6 +14,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { FaBookmark } from "react-icons/fa";
 import { changeProfile } from "../../Slices/ProfileSlice";
 import { useEffect, useState } from "react";
+import { postJob } from "../../Services/PostJobService";
+import { toast } from "react-toastify";
 const JobDesc = (props: any) => {
   const user=useSelector((state:any)=>state.user);
   const dispatch=useDispatch();
@@ -47,14 +49,48 @@ const JobDesc = (props: any) => {
   ];
 
   useEffect(() => {
-    
     if(props.applicants?.filter((applicant:any)=>applicant.applicantId==user.id).length>0){
       setApplied(true);
     }else{
       setApplied(false)
     }
-    
   }, [props])
+
+  const handleJobClose=()=>{
+    postJob({...props,jobStatus:"CLOSED"}).then((res)=>{
+        toast.success(
+          <div>
+            <div className="font-semibold text-black text-base">
+              Success
+            </div>
+            <div className="text-sm text-gray-800">
+              Job Closed Successfully
+            </div>
+          </div>,
+          {
+            position: "top-center",
+            autoClose: 5000,
+            theme: "light",
+          }
+        );
+    }).catch((err)=>{
+       toast.error(
+          <div>
+            <div className="font-semibold text-black text-base">
+              Error
+            </div>
+            <div className="text-sm text-white">
+              {err.response.data.errorMessage}
+            </div>
+          </div>,
+          {
+            position: "top-center",
+            autoClose: 5000,
+            theme: "colored",
+          }
+        );
+    })
+  }
   
   return (
     <div className="w-2/3">
@@ -73,17 +109,17 @@ const JobDesc = (props: any) => {
           </div>
         </div>
         <div className="flex flex-col gap-2 items-center">
-          {(props.edit || !applied )&&<Link to={`/apply-job/${props.id}`}>
+          {(props.edit || !applied )&&<Link to={props.edit?`/post-job/${props.id}`:`/apply-job/${props.id}`}>
             <Button color="#ffbd20" variant="light">
-              {props.edit ? "Edit" : "Apply"}
+              {props.close?"Reopen":props.edit ? "Edit" : "Apply"}
             </Button>
           </Link>}
-          {applied &&<Button color="green.8" variant="light">
+          {!props.edit && applied &&<Button color="green.8" variant="light">
               Applied
             </Button>}
-          {props.edit ? (
-            <Button color="red.5" variant="outline">
-              Delete
+          {props.edit && !props.close ? (
+            <Button onClick={handleJobClose} color="red.5" variant="outline">
+              Close
             </Button>
           ) : (
             profile.savedJobs?.includes(props.id)?<FaBookmark onClick={handleSaveJobs}

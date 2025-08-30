@@ -199,11 +199,11 @@ useEffect(() => {
       <div className=" flex [&>*]:w-1/2 [&>*]:p-1 gap-2">
         {!props.invited && (
           <>
-            <Link to={`/talent-profile/${profile.id}`}>
+            <Link to={`/talent-profile/${props.id}`}>
               <Button color="#ffbd20" variant="outline" fullWidth>
-                Profile
+              Profile
               </Button>
-            </Link>
+              </Link>
             <div className="">
               {props.schedule ? (
                 <Button

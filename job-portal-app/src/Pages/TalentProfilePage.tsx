@@ -4,23 +4,17 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Profile from "../Components/TalentProfile/Profile";
 import RecommendedTalent from "../Components/TalentProfile/RecommendedTalent";
 import { useEffect, useState } from "react";
-import { getUserData } from "../Services/ProfileServices";
+import { getAllProfiles } from "../Services/ProfileServices";
 
 const TalentProfilePage = () => {
   const navigate = useNavigate();
-  const { id } = useParams();
-  const [profileData, setProfileData] = useState<any>(null);
+  const [talents, setTalents] = useState<any[]>([]);
 
   useEffect(() => {
-    if (id) {
-      getUserData(id)
-        .then((res) => setProfileData(res))
-        .catch((err) => console.error("Error fetching user data:", err));
-    }
-  }, [id]);
-  console.log(profileData);
-  
-
+    getAllProfiles().
+    then((res)=>setTalents(res)).
+    catch((err)=>console.log(err))
+  }, []);
   return (
     <div className="min-h-[100vh] bg-[#2d2d2d] font-['poppins'] p-4">
       <Link to="/find-talent" className="my-4 inline-block">
@@ -37,12 +31,8 @@ const TalentProfilePage = () => {
       <Divider size="xs" />
 
       <div className="flex justify-between gap-5">
-        {profileData ? (
-          <Profile {...profileData} />   
-        ) : (
-          <div className="text-white text-lg">Loading profile...</div>
-        )}
-        <RecommendedTalent />
+          <Profile  />   
+        <RecommendedTalent talent={talents} />
       </div>
     </div>
   );
