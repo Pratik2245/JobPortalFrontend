@@ -15,6 +15,9 @@ const TalentProfilePage = () => {
     then((res)=>setTalents(res)).
     catch((err)=>console.log(err))
   }, []);
+
+  
+  
   return (
     <div className="min-h-[100vh] bg-[#2d2d2d] font-['poppins'] p-4">
       <Link to="/find-talent" className="my-4 inline-block">

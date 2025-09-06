@@ -1,7 +1,6 @@
 import { Tabs } from "@mantine/core";
 import PostedJobCard from "./PostedJobCard";
 import { useEffect, useMemo, useState } from "react";
-import { useEditor } from "@tiptap/react";
 
 const PostedJob = (props: any) => {
   useEffect(() => {

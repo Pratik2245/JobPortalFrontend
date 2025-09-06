@@ -6,6 +6,7 @@ import Underline from "@tiptap/extension-underline";
 import TextAlign from "@tiptap/extension-text-align";
 import Superscript from "@tiptap/extension-superscript";
 import SubScript from "@tiptap/extension-subscript";
+import { useEffect } from "react";
 
 const TextEditor = (props: any) => {
   const editor = useEditor({
@@ -23,7 +24,11 @@ const TextEditor = (props: any) => {
       props.form.setFieldValue("description", editor.getHTML());
     },
   });
-  // console.log(editor);
+  
+  useEffect(() => {
+    editor?.commands.setContent(props.data);
+  }, [props.data])
+  
 
   return (
     <RichTextEditor editor={editor}>

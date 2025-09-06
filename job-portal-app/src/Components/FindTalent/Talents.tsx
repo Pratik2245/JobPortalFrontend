@@ -1,8 +1,19 @@
-import { talents } from "../../Data/TalentData";
+import { useEffect, useState } from "react";
 import MostRecent from "../FindJobs/MostRecent";
 import TalentCard from "./TalentCard";
+import { getAllProfiles } from "../../Services/ProfileServices";
 
 const Talents = () => {
+  const [talents, setTalents] = useState<any[]>([]);
+  
+    useEffect(() => {
+      getAllProfiles().
+      then((res)=>setTalents(res)).
+      catch((err)=>console.log(err))
+    }, []);
+
+    console.log("talents",talents);
+    
   return (
     <>
       <div className="p-5">

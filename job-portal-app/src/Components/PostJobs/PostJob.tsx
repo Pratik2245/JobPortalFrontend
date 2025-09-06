@@ -4,13 +4,17 @@ import SelectInput from "./SelectInput";
 import TextEditor from "./TextEditor";
 import { isNotEmpty, useForm } from "@mantine/form";
 import { toast } from "react-toastify";
-import { postJob } from "../../Services/PostJobService";
-import { useNavigate } from "react-router-dom";
+import { getJobById, postJob } from "../../Services/PostJobService";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 const PostJob = () => {
+  const {id}=useParams();
+  const[des,setDes]=useState(content);
   const user = useSelector((state: any) => state.user);
   const navigate = useNavigate();
+  
   const form = useForm({
     mode: "controlled",
     validateInputOnChange: true,
@@ -45,6 +49,7 @@ const PostJob = () => {
     console.log(form.getValues());
     const res = await postJob({
       ...form.getValues(),
+      id,
       postedBy: user.id,
       jobStatus: "ACTIVE",
     });
@@ -68,6 +73,7 @@ const PostJob = () => {
   const handleDraftJobs = async () => {
     await postJob({
       ...form.getValues(),
+      id,
       postedBy: user.id,
       jobStatus: "DRAFT",
     })
@@ -93,6 +99,27 @@ const PostJob = () => {
   };
 
   const select = fields;
+
+    useEffect(() => {
+      const fetchJob= async()=>{
+        window.scrollTo(0,0);
+        if(id!=='0'){
+          try {
+            const res = await getJobById(id);
+            form.setValues(res.data); 
+            setDes(res.data.description)
+          } catch (err) {
+            console.error("Error fetching job:", err);
+          }
+        }else{
+          form.reset();
+          setDes(content);
+        }
+      }
+      fetchJob();
+       }, [id])
+
+       
   return (
     <div className="w-4/5 m-auto">
       <div className="text-2xl font-semibold mb-5">Post Job</div>
@@ -138,7 +165,7 @@ const PostJob = () => {
           <div className="text-xl font-semibold mb-3">
             Job Description <span className="text-red-500">*</span>
           </div>
-          <TextEditor form={form} />
+          <TextEditor form={form} data={des}/>
         </div>
         <div className="flex   gap-4">
           <Button onClick={handlePostJobs} color="#ffbd20" variant="light">
