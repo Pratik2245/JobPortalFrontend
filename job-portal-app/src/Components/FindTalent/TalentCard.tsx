@@ -161,14 +161,14 @@ useEffect(() => {
           <div className="">
             <div className="font-semibold">{props.name}</div>
             <div className="text-xs text-[#b0b0b0]">
-              {applicantData.jobTitle} &#x2022; {applicantData.company}
+              {props.jobTitle} &#x2022; {props.company}
             </div>
           </div>
         </div>
         <Heart className="cursor-pointer" />
       </div>
       <div className="flex flex-wrap items-center justify-between gap-2 [&>span]:py-1 [&>span]:bg-[#454545] [&>span]:text-[#ffbd20] [&>span]:rounded-lg text-xs [&>span]:px-2 mb-1">
-        {applicantData.skills?.map(
+        {props.skills?.map(
           (skill: string, index: number) =>
             index < 4 && <span key={index}>{skill}</span>
         )}
@@ -178,7 +178,7 @@ useEffect(() => {
         className="!text-xs !text-[#b0b0b0] !mb-3 text-justify "
         lineClamp={3}
       >
-        {applicantData.about}
+        {props.about}
       </Text>
       <Divider size="xs" color="#4f4f4f" />
 
@@ -189,9 +189,9 @@ useEffect(() => {
         </div>
       ) : (
         <div className="flex justify-between mb-2 mt-2">
-          <div className="text-[#d1d1d1] text-sm font-semibold">22 LPA</div>
+          <div className="text-[#d1d1d1] text-sm font-semibold">Exp : {props.totalExp?props.totalExp:0} Years</div>
           <div className="flex text-xs gap-0.5 items-center text-[#888888]">
-            <MapPin size={15} /> {applicantData.location}
+            <MapPin size={15} /> {props.location}
           </div>
         </div>
       )}

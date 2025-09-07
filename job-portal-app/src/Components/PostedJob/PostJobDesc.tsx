@@ -6,18 +6,23 @@ import { useEffect, useState } from "react";
 const PostJobDesc = (props: any) => {
   const[tab,setTab]=useState('overview');
   const[arr,setArr]=useState([]);
-  const handleTabChange=(value:any)=>{
-    setTab(value);
-    if(value=='applicants'){
-      setArr(props.applicants?.filter((x: any) => x.applicationStatus === "APPLIED"))
-    }else if(value=="invited"){
-      setArr(props.applicants?.filter((x: any) => x.applicationStatus === "INTERVIEWING"))
-    }else if(value=="offered"){
-     setArr( props.applicants?.filter((x: any) => x.applicationStatus === "OFFERED"))
-    }else if(value=="rejected"){
-      setArr(props.applicants?.filter((x: any) => x.applicationStatus === "REJECT"))
-    }
+  const handleTabChange = (value: string | null) => {
+  if (!value) return;
+  setTab(value);
+
+  if (value === "applicants") {
+    setArr(props.applicants?.filter((x: any) => x.applicationStatus === "APPLIED") || []);
+  } else if (value === "invited") {
+    setArr(props.applicants?.filter((x: any) => x.applicationStatus === "INTERVIEWING") || []);
+  } else if (value === "offered") {
+    setArr(props.applicants?.filter((x: any) => x.applicationStatus === "OFFERED") || []);
+  } else if (value === "rejected") {
+    setArr(props.applicants?.filter((x: any) => x.applicationStatus === "REJECT") || []);
+  } else {
+    setArr([]);
   }
+};
+
 
   useEffect(() => {
     handleTabChange('overview')
@@ -50,7 +55,8 @@ const PostJobDesc = (props: any) => {
             <div className=" mt-10 flex flex-wrap  gap-5 ">
               {arr.length?arr.map((talent: any, index: any) => (
                   <TalentCard schedule key={index} {...talent} />
-                )):<div className="text-2xl font-semibold">No Applicants Found</div>}
+                )):
+                <div className="text-2xl font-semibold">No Applicants Found</div>}
             </div>
           </Tabs.Panel>
           <Tabs.Panel value="invited">
