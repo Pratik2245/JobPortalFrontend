@@ -44,7 +44,7 @@ const Profile = (props: any) => {
             <MapPin /> {profile.location}
           </div>
           <div className="">
-            <Briefcase /> Experience: 2 Years
+            <Briefcase />Experience: {profile.totalExp} Years
           </div>
         </div>
         <Divider />

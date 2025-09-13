@@ -8,6 +8,7 @@ import { resetFilter } from "../../Slices/FilterSlice";
 const Talents = () => {
   const dispatch=useDispatch();
   const [talents, setTalents] = useState<any[]>([]);
+  const sort=useSelector((state:any)=>state.sort);
   const filter=useSelector((state:any)=>state.filter);
   const[filteredTalents,setFilteredTalents]=useState<any>([]);
     useEffect(() => {
@@ -45,9 +46,29 @@ const Talents = () => {
     if(filter.exp && filter.exp.length>0){
       filterTalent = filterTalent.filter((talent: any)=>filter.exp[0]<=talent.totalExp && talent.totalExp<=filter.exp[1])
     }
+     if (sort) {
+  switch (sort) {
+    case "Experience (Low to High)":
+      filterTalent = [...filterTalent].sort(
+        (a: any, b: any) => a.totalExp - b.totalExp
+      );
+      break;
+
+    case "Experience (High to Low)":
+      filterTalent = [...filterTalent].sort(
+        (a: any, b: any) => b.totalExp - a.totalExp
+      );
+      break;
+
+    case "Relevance": // optional custom sorting
+    default:
+      break;
+  }
+}
+
       setFilteredTalents(filterTalent);
      
-    }, [filter,talents])
+    }, [filter,talents,sort])
     
     
   return (
@@ -56,7 +77,7 @@ const Talents = () => {
         <div className="flex justify-between p-3 mt-5">
           <div className="text-2xl font-semibold">Talents</div>
           <div>
-            <MostRecent />
+            <MostRecent  sortType="talent" />
           </div>
         </div>
         <div className=" mt-10 flex flex-wrap  gap-5 ">

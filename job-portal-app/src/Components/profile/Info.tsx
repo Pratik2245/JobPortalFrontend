@@ -1,4 +1,4 @@
-import { ActionIcon } from "@mantine/core";
+import { ActionIcon, NumberInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import {
   Briefcase,
@@ -29,6 +29,7 @@ const Info = () => {
         jobTitle: profile.jobTitle,
         company: profile.company,
         location: profile.location,
+        totalExp:profile.totalExp,
       });
     } else {
       setEdit(false);
@@ -40,6 +41,7 @@ const Info = () => {
       jobTitle: "",
       company: "",
       location: "",
+      totalExp:0,
     },
   });
   const handleSave = () => {
@@ -97,20 +99,23 @@ const Info = () => {
             <SelectInput form={form} name="jobTitle" {...select[0]} />
             <SelectInput form={form} name="company" {...select[1]} />
           </div>
+          <div className="flex gap-10 [&>*]:w-1/2">
           <SelectInput form={form} name="location" {...select[2]} />
+          <NumberInput min={1} max={50} clampBehavior="strict" label="Total Experience" hideControls withAsterisk {...form.getInputProps('totalExp')} name="totalExp"/>
+          </div>
         </>
       ) : (
         <div className="[&>div]:flex [&>div]:gap-2 [&>div]:mb-1 mb-7">
           <div className="">
-            <BriefcaseBusiness /> {profile.jobTitle}
+            <BriefcaseBusiness /> {profile.jobTitle},{profile.company}
           </div>
           <div className="">
             <MapPin /> {profile.location}
           </div>
-          <div className="">
-            <Briefcase />
-            {profile.company}
+           <div className="">
+          <Briefcase />Experience: {profile.totalExp} Years
           </div>
+          
         </div>
       )}
     </>

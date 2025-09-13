@@ -48,9 +48,10 @@ const MultiInput = (props: any) => {
     }
   };
 
-  const handleValueRemove = (val: string) =>
+  const handleValueRemove = (val: string) =>{
+    dispatch(updateFilter({[props.title]:value.filter((v)=>v!==val)}))
     setValue((current) => current.filter((v) => v !== val));
-
+  }
   const values = value.slice(0, 1).map((item) => (
     <Pill key={item} withRemoveButton onRemove={() => handleValueRemove(item)}>
       {item}
