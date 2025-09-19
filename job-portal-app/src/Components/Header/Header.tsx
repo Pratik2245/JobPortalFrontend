@@ -5,6 +5,7 @@ import NavLinks from "./NavLinks";
 import { Link, useLocation } from "react-router-dom";
 import ProfileMenu from "./ProfileMenu";
 import { useSelector } from "react-redux";
+import NotificationMenu from "./NotificationMenu";
 const Header = () => {
   const user = useSelector((state: any) => state.user);
   const location = useLocation();
@@ -25,14 +26,9 @@ const Header = () => {
             </Button>
           </Link>
         )}
-        {/* <div className="bg-[#3d3d3d] p-1.5 rounded-full">
-          <Settings />
-        </div> */}
-        <div className="bg-[#3d3d3d] p-1.5 rounded-full">
-          <Indicator offset={6} size={8} color="bright-sun.4" processing>
-            <IoMdNotificationsOutline size={24} />
-          </Indicator>
-        </div>
+        
+           {user? <NotificationMenu/>:<></>}
+      
       </div>
     </div>
   ) : (
